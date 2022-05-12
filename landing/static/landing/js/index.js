@@ -1,5 +1,4 @@
-// 1. 탭 버튼을 클릭하면 아래 인풋들을 보여주세요.
-// 일단 인풋들 보여준 뒤 display로 가려준다.
+// 탭 버튼 기능 리팩토링 하기
 
 const tab0 = document.querySelectorAll(".tab-item")[0];
 const tab1 = document.querySelectorAll(".tab-item")[1];
@@ -83,3 +82,43 @@ calSecond.addEventListener("click", tabOpen2);
 
 //   // console.log(familyNumberVal);
 // });
+
+// 숫자에 , 로 구분해주는 구성
+// this로 리팩토링하기
+let workElement = document.getElementById("work");
+let cashElement = document.getElementById("cash");
+let houseElement = document.getElementById("house");
+let landElement = document.getElementById("land");
+let medicalElement = document.getElementById("medical");
+let carElement = document.getElementById("car");
+let debtElement = document.getElementById("debt");
+
+function changeValue(stringNumber,element) {
+  let tempString = stringNumber.replaceAll(",", "");
+  let numberCash = BigInt(tempString);
+  element.value = numberCash
+    .toLocaleString("ko-KR", { style: "currency", currency: "KRW" })
+    .slice(1);
+}
+workElement.addEventListener("input", (event) =>
+  changeValue(event.target.value,workElement)
+);
+cashElement.addEventListener("input", (event) =>
+  changeValue(event.target.value,cashElement)
+);
+houseElement.addEventListener("input", (event) =>
+  changeValue(event.target.value,houseElement)
+);
+landElement.addEventListener("input", (event) =>
+  changeValue(event.target.value,landElement)
+);
+medicalElement.addEventListener("input", (event) =>
+  changeValue(event.target.value,medicalElement)
+);
+carElement.addEventListener("input", (event) =>
+  changeValue(event.target.value,carElement)
+);
+debtElement.addEventListener("input", (event) =>
+  changeValue(event.target.value,debtElement)
+);
+

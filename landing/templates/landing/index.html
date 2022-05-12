@@ -15,7 +15,7 @@
 <body>
   <div id="wrap">
     <header>
-      <a class="logo" href="#home"><img src="static/landing/img/logo.png" alt="logo" width="130px" height="33px"></a>
+      <a class="logo" href="#home"><img src="static/landing/img/logo.png" alt="logo" width="130px" height="20px"></a>
       <nav>
         <ul class="nav-items">
           <li><a href="#home">서비스</a></li>
@@ -93,24 +93,30 @@
           </div>
           <div class="tab-content">
             <p class="f-primary text-start input-name">3개월간 지속적으로 받은 지난 달 수입(근로 / 사업 / 프리랜서)은 얼마인가요?</p>
-            <input name="work" type="text" placeholder="근로, 사업 소득">
+            <input name="work" id="work" type="text" placeholder="근로, 사업 소득">
             <p class="f-primary text-start input-name">보유 중인 현금은 얼마인가요?</p>
-            <input name="cash" type="text" placeholder="">
+            <input name="cash" id="cash" type="text" value="">
+            <span class="won" style="top: 175px;">₩</span>
             <p class="f-primary text-start input-name">보유 중인 자가 주택 재산액은 얼마인가요?</p>
-            <input name="house" type="text">
+            <input name="house" id="house" type="text">
+            <span class="won" style="top: 280px;">₩</span>
             <p class="f-primary text-start input-name">보유 중인 토지는 얼마인가요?</p>
-            <input name="land" type="text">
+            <input name="land" id="land" type="text">
+            <span class="won" style="top: 385px;">₩</span>
             <button class="bt" type="button" id="calculator-second">
               <p>다음</p>
             </button>
           </div>
           <div class="tab-content">
             <p class="f-primary text-start input-name">3개월 이상 앓은 만성 질환으로 인해 지출하는 의료비용 월 평균은 얼마인가요?</p>
-            <input name="medical" type="text" placeholder="₩">
+            <input name="medical" id="medical" type="text">
+            <span class="won" style="top: 70px;">₩</span>
             <p class="f-primary text-start input-name">생계 유지 목적 외 보유 중인 차량 가액은 얼마인가요? </p>
-            <input name="car" type="text" placeholder="">
+            <input name="car" id="car" type="text">
+            <span class="won" style="top: 175px;">₩</span>
             <p class="f-primary text-start input-name">보유 중인 부채는 얼마인가요?</p>
-            <input name="debt" type="text">
+            <input name="debt" id="debt" type="text">
+            <span class="won" style="top: 280px;">₩</span>
             <button class="bt" type="submit" id="calculator-third">
               <p>제출하기</p>
             </button>
@@ -218,7 +224,6 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="static/landing/js/chart.js"></script>
   <script src="static/landing/js/index.js"></script>
-
 </body>
 
 </html>
