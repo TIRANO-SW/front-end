@@ -81,6 +81,7 @@ li {
   padding: 0 15px;
   list-style-type: none;
 }
+.tab-content >
 input:hover,
 select:hover {
   background-color: rgb(79, 152, 255, 0.05);
@@ -88,6 +89,7 @@ select:hover {
 input:focus,
 select:focus {
   font-weight: 100;
+  outline-color: var(--Primary);
 }
 section {
   background-color: var(--Primary);
@@ -190,9 +192,15 @@ aside {
   margin: 0 auto;
   text-align: center;
   display: none;
+  position: relative;
 }
 form {
   text-align: center;
+}
+.won {
+  position: absolute;
+  left: 550px;
+  color: #A8A8A8;
 }
 .tab-group {
   width: 580px;
@@ -231,7 +239,8 @@ select {
   border-radius: 44px;
   text-align: center;
   font-size: var(--F-md);
-  border: 1px solid #a7aaae;
+  border: none;
+  box-shadow: 3px 5px 10px 0px rgba(0,0,0,0.09);
   color: var(--Primary);
   /* outline-color: rgb(248, 167, 62, 0.1); */
 }
@@ -240,7 +249,7 @@ select {
   height: 62px;
   border-radius: 50%;
   color: white;
-  background-color: var(--Primary);
+  background-color: var(--Primary-b);
   font-size: var(--F-md);
 }
 .bt {
