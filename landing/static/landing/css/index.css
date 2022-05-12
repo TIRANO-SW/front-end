@@ -1,9 +1,9 @@
 :root {
-  --Primary: #f08325;
+  --Primary: #4f98ff;
   --Secondary: #304977;
   --Basic: #66686b;
   --F-sm: 1rem;
-  --F-md: 1.5rem;
+  --F-md: 1.375rem;
   --F-lg: 2rem;
 }
 .f-sm {
@@ -24,6 +24,10 @@
 .f-basic {
   color: var(--Basic);
 }
+.g-light {
+  color: #dcdcdc;
+  font-weight: 100;
+}
 * {
   box-sizing: border-box;
 }
@@ -33,25 +37,36 @@ a {
 }
 h1 {
   font-size: 2.625rem;
-  margin-top: -100px;
   text-align: center;
   color: var(--Secondary);
   font-weight: bold;
+  font-family: Pretendard, sans-serif
 }
 p {
-  color: #ffffff;
+  color: black;
   letter-spacing: 1px;
   margin: 0;
 }
+button {
+  background-color: transparent;
+  border: none;
+}
+button > p {
+  color: white;
+  font-size: var(--F-md);
+}
 body {
   margin: 0;
+}
+ul {
+  padding: 0;
 }
 header {
   height: 64px;
   display: flex;
   justify-content: space-between;
   padding: 15px;
-  margin: 0 400px;
+  margin: 0 300px;
 }
 ul {
   line-height: 33px;
@@ -61,22 +76,35 @@ li {
   padding: 0 15px;
   list-style-type: none;
 }
+input:hover,
+select:hover {
+  background-color: rgb(248, 167, 62, 0.1);
+}
+input:focus,
+select:focus {
+  font-weight: 100;
+}
 section {
   background-color: var(--Secondary);
   width: 100%;
 }
-.row > .col-md-6 {
+#section-wrap {
+  position: relative;
+  z-index: 1;
+}
+.col-box {
   width: auto;
   padding: 10px 0;
 }
-.row {
+.row-box {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-bottom: 150px;
+  height: 420px;
 }
 .section-left {
   width: 100%;
-  padding-left: 150px;
 }
 .cal-btn {
   width: 310px;
@@ -91,18 +119,28 @@ section {
 article {
   width: 1024px;
   text-align: center;
-  margin: 0 auto;
-  padding-top: 100px;
-  position: relative;
-  z-index: 2;
+  margin: -50px auto 100px;
 }
 aside {
   background-color: var(--Primary);
   width: 100%;
   height: 520px;
-  position: relative;
-  z-index: 1;
   top: -240px;
+}
+.article-text-group {
+  /* width: 790px; */
+  display: flex;
+  justify-content: center;
+  margin: 0;
+}
+
+.article-left-text,
+.article-center-text,
+.article-right-text {
+  width: 200px;
+}
+.article-center-text {
+  margin: -50px 40px 0;
 }
 #aside-wrap {
   width: 1024px;
@@ -124,17 +162,116 @@ aside {
   flex-direction: column;
   background-color: rgba(255, 255, 255, 0.2);
 }
+#calculation {
+  position: relative;
+  z-index: 2;
+  top: -180px;
+}
 .calculate {
   width: 900px;
   height: 860px;
   border: 1px solid gainsboro;
   border-radius: 20px;
-  margin: 100px auto;
-  box-shadow: 4px 4px 35px #e5e5e5;
+  margin: 0 auto;
+  padding: 50px;
+  box-shadow: 4px 4px 35px rgb(0, 0, 0, 0.1);
+  background-color: white;
+}
+.tab-content {
+  width: 580px;
+  margin: 0 auto;
+  text-align: center;
+  display: none;
+}
+form {
+  text-align: center;
+}
+.tab-group {
+  width: 580px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin: 50px auto 0;
+}
+.tab-item {
+  width: 190px;
+  font-size: var(--F-md);
+  border: none;
+  border-bottom: 1px solid gray;
+  background-color: transparent;
+  cursor: pointer;
+}
+.input-name {
+  padding: 30px 0 5px 20px;
+  font-size: 17px;
+  font-weight: bold;
+  width: 600px;
 }
 
 #reservation {
   background-color: var(--Secondary);
   width: 100%;
-  padding: 100px 0;
+  height: 270px;
+}
+input,
+select {
+  width: 580px;
+  height: 44px;
+  border-radius: 44px;
+  text-align: center;
+  font-size: var(--F-md);
+  border: 1px solid #a7aaae;
+  color: var(--Primary);
+  /* outline-color: rgb(248, 167, 62, 0.1); */
+}
+.btn-circle {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  color: white;
+  background-color: var(--Primary);
+  font-size: var(--F-md);
+}
+.submit-btn {
+  width: 180px;
+  height: 50px;
+  border-radius: 50px;
+  background-color: var(--Primary);
+  margin-top: 50px;
+}
+.active {
+  border-bottom: 2px solid var(--Primary);
+}
+.show {
+  display: block;
+}
+.row {
+  /* width: 1024px; */
+  /* display: flex; */
+  /* justify-content: space-between; */
+  margin: 0 auto;
+}
+footer {
+  margin: 50px 0;
+}
+.footer-box {
+  width: 1024px;
+  display: flex;
+  justify-content: space-between;
+}
+.footer-left {
+  width: auto;
+  text-align: left;
+}
+.footer-right {
+  width: auto;
+  display: flex;
+  justify-content: center;
+}
+.display-block {
+  display: block;
+}
+.rule {
+  width: 1024px;
+  margin: 20px auto;
 }
