@@ -43,7 +43,7 @@
     <div id="calculation">
 
       <div class="calculate">
-        <h1>나의 중위소득 퍼센트 계산하기</h1>
+        <h1>나의 <strong>중위소득 퍼센트</strong> 계산하기</h1>
         <ul class="tab-group">
           <li class="tab-item active">Step 1</li>
           <li class="tab-item">Step 2</li>
@@ -54,26 +54,40 @@
           <div class="tab-content show">
             <p class="f-primary text-start input-name">닉네임</p>
             <input name="nickname" type="text" value="익명의 복지왕">
+            <p class="f-primary text-start input-name">나이</p>
+            <input name="age" type="text" value="">
             <p class="f-primary text-start input-name">가구원수</p>
-            <select name="family-number" id="family-number">
-              <option value="1" selected>1인</option>
-              <option value="2">2인</option>
-              <option value="3">3인</option>
-              <option value="4">4인</option>
+            <select name="family-number">
+              <option value="1" selected>1인 가구</option>
+              <option value="2">2인 가구</option>
+              <option value="3">3인 가구</option>
+              <option value="4">4인 가구</option>
+              <option value="5">5인 가구</option>
+              <option value="6">6인 가구</option>
+              <option value="7">7인 가구</option>
+              <option value="8">8인 가구</option>
             </select>
             <p class="f-primary text-start input-name">유형</p>
-            <select name="house-type">
-              <option value="" selected>국민취업제도</option>
-              <option value="">청년기본소득</option>
-              <option value="">내일채움공제</option>
+            <select name="bokji-type">
+              <option value="none" selected>없음</option>
+              <option value="participation-income">장애인 직업재활사업, 정신질환자 직업재활사업 참여 소득</option>
+              <option value="recipient">24세 이하 수급(권)자</option>
+              <option value="college">24세 이하 대학생</option>
+              <option value="facility">아동시설퇴소 및 가정위탁보호 종료 5년 이내 청년</option>
+              <option value="student">25세 이상 초, 중, 고등학생</option>
+              <option value="handicapped">75세 이상 노인, 등록장애인, 북한이탈주민</option>
+              <option value="elder">65세 이상  74세 이하 노인</option>
+              <option value="pregnant">임신 중에 있거나 분만 후 6개월 미만의 여성</option>
+              <option value="soldier">사회복무요원, 상근예비역</option>
+              <option value="intern">행정기관 및 공공기관의 행정인턴(행정인턴 참여소득)</option>
             </select>
             <p class="f-primary text-start input-name">거주지</p>
             <select name="location">
-              <option value="" selected>서울</option>
-              <option value="">경기</option>
-              <option value="">강원</option>
+              <option value="big-city" selected>대도시 : 특별시, 광역시, 특례시</option>
+              <option value="medium-city">중소도시 : 시, 도</option>
+              <option value="small-city">농어촌 : 구</option>
             </select>
-            <button class="submit-btn" type="button" id="calculator-first">
+            <button class="bt" type="button" id="calculator-first">
               <p>다음</p>
             </button>
           </div>
@@ -86,18 +100,18 @@
             <input name="house" type="text">
             <p class="f-primary text-start input-name">보유 중인 토지는 얼마인가요?</p>
             <input name="land" type="text">
-            <button class="submit-btn" type="button" id="calculator-second">
+            <button class="bt" type="button" id="calculator-second">
               <p>다음</p>
             </button>
           </div>
           <div class="tab-content">
             <p class="f-primary text-start input-name">3개월 이상 앓은 만성 질환으로 인해 지출하는 의료비용 월 평균은 얼마인가요?</p>
-            <input name="medical" type="text" placeholder="근로, 사업 소득">
+            <input name="medical" type="text" placeholder="₩">
             <p class="f-primary text-start input-name">생계 유지 목적 외 보유 중인 차량 가액은 얼마인가요? </p>
             <input name="car" type="text" placeholder="">
             <p class="f-primary text-start input-name">보유 중인 부채는 얼마인가요?</p>
             <input name="debt" type="text">
-            <button class="submit-btn" type="submit" id="calculator-third">
+            <button class="bt" type="submit" id="calculator-third">
               <p>제출하기</p>
             </button>
         </form>
@@ -105,8 +119,8 @@
     </div>
   </div>
   <article>
-    <p class="f-lg f-primary"><strong>추천, 신청, 후기까지</strong></p>
-    <p class="f-md f-primary">복지 서비스를 이용하는 모든 과정을 Cleaverly에서.</p>
+    <p class="f-lg f-secondary"><strong>추천, 신청, 후기까지</strong></p>
+    <p class="f-md f-secondary">복지 서비스를 이용하는 모든 과정을 Cleaverly에서.</p>
     <img class="mt-5" src="static/landing/img/img_main_3.png" width="790px" height="350px" alt="main-2">
 
     <div class="article-text-group">
@@ -152,12 +166,12 @@
 
   <div id="reservation">
     <div class="row row-box">
-      <div class="col-md-6 col-box me-5 w-auto">
-        <p class="f-primary f-md">Cleaverly를 <strong>가장 먼저 이용</strong>해보고 싶나요?</p>
-        <p class="f-lg">사전 예약하고 알림 받아보세요</p>
+      <div class="col-md-6 col-box me-5">
+        <p class="f-md">Cleaverly를 <strong>가장 먼저 이용</strong>해보고 싶나요?</p>
+        <p class="f-lg f-white">사전 예약하고 알림 받아보세요</p>
       </div>
-      <div class="col-md-6 col-box ms-5 w-auto">
-        <input type="tel" placeholder="휴대폰 번호를 입력해주세요">
+      <div class="col-md-6 col-box ms-5">
+        <input id="number-box" type="tel" placeholder="휴대폰 번호를 입력해주세요">
         <button class="btn-circle ms-3" type="submit">등록</button>
       </div>
     </div>
