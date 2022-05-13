@@ -1,41 +1,44 @@
-from django.http import QueryDict
 from django.shortcuts import render, redirect
 
 # Create your views here.
 def calculate_median_income(request):
     if request.method == "POST":
-        bokji_type = request.POST.get('bokji-type')
-        # if bokji_type != "none":
-            # calculate_bokji_type(request.POST.get(request.POST.get('work'),'bokji-type'))
-        
+        request_post = request.POST
+        income = request_post.get('work')
+        bokji_type = request_post.get('bokji-type')
+        print(bokji_type)
+        if bokji_type != "none":
+            benefit_result = int(calculate_bokji_type(income,'bokji-type'))
+            final_benefit_result = compare_default_deduct(income, benefit_result)
+            print(final_benefit_result)
         return redirect("/")
     return render(request, "landing/index.html")
 
-# def calculate_bokji_type(income, bokji_type):
-#     benefit_result = 0
-#     if bokji_type == "participation-income":
-#         income-200000
-#         return benefit_result
-#     elif bokji_type == "recipient":
-#         return benefit_result
-#     elif bokji_type == "college":
-#         return benefit_result
-#     elif bokji_type == "facility":
-#         return benefit_result
-#     elif bokji_type == "student":
-#         return benefit_result
-#     elif bokji_type == "handicapped":
-#         return benefit_result
-#     elif bokji_type == "elder":
-#         return benefit_result
-#     elif bokji_type == "pregnant":
-#         return benefit_result
-#     elif bokji_type == "soldier":
-#         return benefit_result
-#     elif bokji_type == "intern":
-#         return benefit_result
-#     else:
-        
+def calculate_bokji_type(income, bokji_type):
+    benefit_result = 0
+    if bokji_type == "participation-income":
+        benefit_result = (income-200000)*0.5
+        return benefit_result
+    elif (bokji_type == "recipient") | (bokji_type == "college"):
+        benefit_result = (income-400000)*0.7
+        return benefit_result
+    elif bokji_type == "facility":
+        benefit_result = (income-500000)*0.7
+        return benefit_result
+    elif bokji_type == "student":
+        benefit_result = (income-200000)*0.7
+        return benefit_result
+    elif bokji_type == "handicapped":
+        benefit_result = (income-200000)*0.7
+        return benefit_result
+    elif (bokji_type == "elder") | (bokji_type == "pregnant") | (bokji_type == "soldier"):
+        benefit_result = income*0.7
+        return benefit_result
+    elif bokji_type == "intern":
+        benefit_result = income*0.7
+        return benefit_result
+    else:
+        return 0 # 예외처리예정
 
 # 기본 소득공제 30% 결과와 수급자 유형에 따른 공제액과 비교를 통해 
 # 더 유리한 방향으로 적용되기에 비교하는 함수이다.
@@ -46,4 +49,3 @@ def compare_default_deduct(income, benefit_result):
         return default_deduction
     else:
         return benefit_result
-    
