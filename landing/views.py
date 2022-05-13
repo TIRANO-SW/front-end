@@ -1,15 +1,29 @@
-from django.http import QueryDict
+import json
+
+from django.http import JsonResponse, HttpResponseForbidden
 from django.shortcuts import render, redirect
 
 # Create your views here.
 def calculate_median_income(request):
     if request.method == "POST":
-        bokji_type = request.POST.get('bokji-type')
+        bokji_type = request.POST.get('living')
         # if bokji_type != "none":
             # calculate_bokji_type(request.POST.get(request.POST.get('work'),'bokji-type'))
         
         return redirect("/")
     return render(request, "landing/index.html")
+
+
+def cal_median_income(request):
+    if request.method == "POST":
+        request_body = json.loads(request.body)
+        print(request_body)
+        return JsonResponse({
+            "name": "aquashdw"
+        })
+    else:
+        return HttpResponseForbidden()
+
 
 # def calculate_bokji_type(income, bokji_type):
 #     benefit_result = 0
