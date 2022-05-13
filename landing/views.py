@@ -1,3 +1,6 @@
+import json
+
+from django.http import JsonResponse, HttpResponseForbidden
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -13,6 +16,15 @@ def calculate_median_income(request):
             print(final_benefit_result)
         return redirect("/")
     return render(request, "landing/index.html")
+
+    # if request.method == "POST":
+    #     request_body = json.loads(request.body)
+    #     print(request_body)
+    #     return JsonResponse({
+    #         "name": "aquashdw"
+    #     })
+    # else:
+    #     return HttpResponseForbidden()
 
 def calculate_bokji_type(income, bokji_type):
     benefit_result = 0
@@ -39,6 +51,7 @@ def calculate_bokji_type(income, bokji_type):
         return benefit_result
     else:
         return 0 # 예외처리예정
+
 
 # 기본 소득공제 30% 결과와 수급자 유형에 따른 공제액과 비교를 통해 
 # 더 유리한 방향으로 적용되기에 비교하는 함수이다.

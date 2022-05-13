@@ -1,10 +1,14 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+/* =================================== 변수값 설정 및 클래스 설정 =================================== */
+/* =================================== 변수값 설정 및 클래스 설정 =================================== */
 :root {
   --Primary: #4f98ff;
-  --Primary-b:#275FAE;
+  --Primary-b: #275fae;
   --Secondary: #304977;
   --Basic: #66686b;
   --F-sm: 1rem;
-  --F-md: 1.375rem;
+  --F-md: 1.375rem; /* 22px */
+  --F-l: 1.75rem;
   --F-lg: 2rem;
 }
 .f-sm {
@@ -12,6 +16,9 @@
 }
 .f-md {
   font-size: var(--F-md);
+}
+.f-l {
+  font-size: var(--F-l);
 }
 .f-lg {
   font-size: var(--F-lg);
@@ -32,6 +39,47 @@
 .f-white {
   color: white;
 }
+.display-block {
+  display: block;
+}
+.row {
+  margin: 0 auto;
+}
+.col-box {
+  width: auto;
+  padding: 10px 0;
+}
+.row-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 150px;
+  height: 420px;
+}
+.won {
+  position: absolute;
+  top: 70px;
+  left: 550px;
+  color: #a8a8a8;
+}
+.question-icon {
+  position: absolute;
+  top: 35px;
+  left: 550px;
+  vertical-align: middle;
+  line-height: 15px;
+}
+.question-box {
+  width: 100px;
+  border: 1px solid black;
+  position: absolute;
+  top: 50px;
+  left: 600px;
+  display: none;
+}
+
+/* =================================== 전체, body 및 태그 CSS =================================== */
+/* =================================== 전체, body 및 태그 CSS =================================== */
 * {
   box-sizing: border-box;
   font-family: Pretendard, sans-serif;
@@ -51,6 +99,7 @@ p {
   color: black;
   letter-spacing: 1px;
   margin: 0;
+  letter-spacing: -0.5px;
 }
 button {
   background-color: transparent;
@@ -81,34 +130,37 @@ li {
   padding: 0 15px;
   list-style-type: none;
 }
-.tab-content >
-input:hover,
-select:hover {
-  background-color: rgb(79, 152, 255, 0.05);
+
+form {
+  text-align: center;
+}
+input,
+select {
+  width: 580px;
+  height: 44px;
+  border-radius: 44px;
+  text-align: center;
+  font-size: var(--F-md);
+  border: none;
+  box-shadow: 3px 5px 10px 0px rgba(0, 0, 0, 0.09);
+  color: var(--Primary);
+  /* outline-color: rgb(248, 167, 62, 0.1); */
 }
 input:focus,
 select:focus {
   font-weight: 100;
   outline-color: var(--Primary);
 }
-section {
-  background-color: var(--Primary);
-  width: 100%;
-}
+
+/* =================================== section =================================== */
+/* =================================== section =================================== */
 #section-wrap {
   position: relative;
   z-index: 1;
 }
-.col-box {
-  width: auto;
-  padding: 10px 0;
-}
-.row-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-bottom: 150px;
-  height: 420px;
+section {
+  background-color: var(--Primary);
+  width: 100%;
 }
 .section-left {
   width: 100%;
@@ -116,6 +168,13 @@ section {
 .section-left > p {
   color: white;
 }
+.tab-content > input:hover,
+select:hover {
+  background-color: rgb(79, 152, 255, 0.05);
+}
+
+/* =================================== calculation =================================== */
+/* =================================== calculation =================================== */
 .cal-btn {
   width: 310px;
   height: 60px;
@@ -126,6 +185,101 @@ section {
   font-weight: bold;
   margin-top: 20px;
 }
+#calculation {
+  position: relative;
+  z-index: 2;
+  top: -180px;
+}
+.calculate {
+  width: 900px;
+  height: 860px;
+  border: 1px solid gainsboro;
+  border-radius: 20px;
+  margin: 0 auto;
+  padding: 50px;
+  box-shadow: 4px 4px 35px rgb(0, 0, 0, 0.1);
+  background-color: white;
+}
+.tab-content {
+  width: 580px;
+  margin: 0 auto;
+  text-align: center;
+  display: none;
+  position: relative;
+}
+.tab-group {
+  width: 580px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin: 50px auto 0;
+}
+.tab-item {
+  width: 190px;
+  font-size: var(--F-md);
+  border: none;
+  border-bottom: 1px solid gray;
+  background-color: transparent;
+  cursor: pointer;
+}
+.input-name {
+  padding: 30px 0 5px 20px;
+  font-size: 17px;
+  font-weight: bold;
+  width: 600px;
+}
+.bt {
+  width: 180px;
+  height: 50px;
+  border-radius: 50px;
+  background-color: var(--Primary);
+  margin-top: 50px;
+}
+.tab-box {
+  position: relative;
+}
+.active {
+  border-bottom: 3px solid var(--Primary);
+}
+.show {
+  display: block;
+}
+.hide {
+  display: none;
+}
+#result {
+  width: 900px;
+  height: 860px;
+  border: 1px solid gainsboro;
+  border-radius: 20px;
+  margin: 0 auto;
+  padding: 72px 97px;
+  box-shadow: 4px 4px 35px rgb(0, 0, 0, 0.1);
+  background-color: white;
+}
+.box-sha {
+  border-radius: 20px;
+  border: 1px solid gainsboro;
+  box-shadow: 4px 4px 35px rgb(0, 0, 0, 0.1);
+}
+
+#result > .row {
+  text-align: center;
+}
+
+#result > .row > div {
+  height: 215px;
+}
+
+#calculator-submit {
+  display: none;
+  width: 100%;
+  justify-content: center;
+  align-items: end;
+}
+
+/* =================================== article =================================== */
+/* =================================== article =================================== */
 article {
   width: 1024px;
   text-align: center;
@@ -143,7 +297,6 @@ aside {
   justify-content: center;
   margin: 0;
 }
-
 .article-left-text,
 .article-center-text,
 .article-right-text {
@@ -172,58 +325,9 @@ aside {
   flex-direction: column;
   background-color: rgba(255, 255, 255, 0.2);
 }
-#calculation {
-  position: relative;
-  z-index: 2;
-  top: -180px;
-}
-.calculate {
-  width: 900px;
-  height: 860px;
-  border: 1px solid gainsboro;
-  border-radius: 20px;
-  margin: 0 auto;
-  padding: 50px;
-  box-shadow: 4px 4px 35px rgb(0, 0, 0, 0.1);
-  background-color: white;
-}
-.tab-content {
-  width: 580px;
-  margin: 0 auto;
-  text-align: center;
-  display: none;
-  position: relative;
-}
-form {
-  text-align: center;
-}
-.won {
-  position: absolute;
-  left: 550px;
-  color: #A8A8A8;
-}
-.tab-group {
-  width: 580px;
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  margin: 50px auto 0;
-}
-.tab-item {
-  width: 190px;
-  font-size: var(--F-md);
-  border: none;
-  border-bottom: 1px solid gray;
-  background-color: transparent;
-  cursor: pointer;
-}
-.input-name {
-  padding: 30px 0 5px 20px;
-  font-size: 17px;
-  font-weight: bold;
-  width: 600px;
-}
 
+/* =================================== reservation =================================== */
+/* =================================== reservation =================================== */
 #reservation {
   background-color: var(--Primary);
   width: 100%;
@@ -232,18 +336,7 @@ form {
 #reservation > p {
   color: black;
 }
-input,
-select {
-  width: 580px;
-  height: 44px;
-  border-radius: 44px;
-  text-align: center;
-  font-size: var(--F-md);
-  border: none;
-  box-shadow: 3px 5px 10px 0px rgba(0,0,0,0.09);
-  color: var(--Primary);
-  /* outline-color: rgb(248, 167, 62, 0.1); */
-}
+
 .btn-circle {
   width: 62px;
   height: 62px;
@@ -252,25 +345,9 @@ select {
   background-color: var(--Primary-b);
   font-size: var(--F-md);
 }
-.bt {
-  width: 180px;
-  height: 50px;
-  border-radius: 50px;
-  background-color: var(--Primary);
-  margin-top: 50px;
-}
-.active {
-  border-bottom: 2px solid var(--Primary);
-}
-.show {
-  display: block;
-}
-.row {
-  /* width: 1024px; */
-  /* display: flex; */
-  /* justify-content: space-between; */
-  margin: 0 auto;
-}
+
+/* =================================== footer =================================== */
+/* =================================== footer =================================== */
 footer {
   margin: 50px 0;
 }
@@ -292,9 +369,7 @@ footer {
   width: 500px;
   height: 63px;
 }
-.display-block {
-  display: block;
-}
+
 .rule {
   width: 1024px;
   margin: 20px auto;
