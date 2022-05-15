@@ -6,13 +6,21 @@
   --Primary-b: #275fae;
   --Secondary: #304977;
   --Basic: #66686b;
+  --F-s: 0.75rem;
   --F-sm: 1rem;
+  --F-ms: 1.125rem; /* 18px */
   --F-md: 1.375rem; /* 22px */
-  --F-l: 1.75rem;
+  --F-l: 1.75rem; /* 28px */
   --F-lg: 2rem;
+}
+.f-s {
+  font-size: var(--F-s);
 }
 .f-sm {
   font-size: var(--F-sm);
+}
+.f-ms {
+  font-size: var(--F-ms);
 }
 .f-md {
   font-size: var(--F-md);
@@ -41,6 +49,11 @@
 }
 .display-block {
   display: block;
+}
+.clearfix:after {
+  content: "";
+  display: block;
+  clear: both;
 }
 .row {
   margin: 0 auto;
@@ -144,12 +157,20 @@ select {
   border: none;
   box-shadow: 3px 5px 10px 0px rgba(0, 0, 0, 0.09);
   color: var(--Primary);
-  /* outline-color: rgb(248, 167, 62, 0.1); */
+  border-right: 16px solid transparent; /* 화살표 패딩 */
 }
 input:focus,
 select:focus {
   font-weight: 100;
   outline-color: var(--Primary);
+}
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  vertical-align: text-bottom;
+}
+input[type="checkbox"]+label {
+  padding:0 20px 0 10px;
 }
 
 /* =================================== section =================================== */
@@ -189,6 +210,7 @@ select:hover {
   position: relative;
   z-index: 2;
   top: -180px;
+  transition: all 1s;
 }
 .calculate {
   width: 900px;
@@ -206,6 +228,7 @@ select:hover {
   text-align: center;
   display: none;
   position: relative;
+  transition: all 1s;
 }
 .tab-group {
   width: 580px;
@@ -213,6 +236,7 @@ select:hover {
   justify-content: center;
   text-align: center;
   margin: 50px auto 0;
+  transition: all 0.1s;
 }
 .tab-item {
   width: 190px;
@@ -253,14 +277,18 @@ select:hover {
   border: 1px solid gainsboro;
   border-radius: 20px;
   margin: 0 auto;
-  padding: 72px 97px;
+  padding: 74px;
   box-shadow: 4px 4px 35px rgb(0, 0, 0, 0.1);
   background-color: white;
 }
 .box-sha {
   border-radius: 20px;
-  border: 1px solid gainsboro;
+  /* border: 1px solid gainsboro; */
   box-shadow: 4px 4px 35px rgb(0, 0, 0, 0.1);
+  padding: 0;
+}
+.space-bet {
+  justify-content: space-between;
 }
 
 #result > .row {
@@ -268,7 +296,7 @@ select:hover {
 }
 
 #result > .row > div {
-  height: 215px;
+  height: 240px;
 }
 
 #calculator-submit {
@@ -276,6 +304,63 @@ select:hover {
   width: 100%;
   justify-content: center;
   align-items: end;
+}
+
+p > span {
+  margin: 20px 0 10px 0;
+  color: var(--Basic);
+  font-size: 0.75rem;
+}
+
+.info-left {
+  width: 265px;
+  height: 240px;
+  padding: 23px 35px;
+  font-size: var(--f-sm);
+}
+.info-left,
+.info-right > div {
+  text-align: left;
+}
+
+.info-right {
+  width: 470px;
+  height: 240px;
+  padding: 23px 35px;
+  font-size: var(--f-sm);
+}
+.tag-box {
+  width: 83px;
+  height: 20px;
+  border-radius: 20px;
+  color: var(--Primary);
+  background-color: rgb(79, 152, 255, 0.07);
+  display: inline-block;
+  text-align: center;
+  margin-right: 12px;
+  float: left;
+}
+.input-phone {
+  text-align: center;
+  margin-top: 71px;
+}
+.number-box {
+  width: 480px;
+  height: 47px;
+  font-size: var(--F-ms);
+}
+.btn-circle-2 {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  color: white;
+  background-color: var(--Primary);
+  font-size: var(--F-sm);
+}
+#myChart {
+  width: 668px !important;
+  height: 145px !important;
+  margin: 0 auto;
 }
 
 /* =================================== article =================================== */
@@ -344,6 +429,45 @@ aside {
   color: white;
   background-color: var(--Primary-b);
   font-size: var(--F-md);
+}
+#agreement {
+  width: 900px;
+  height: 860px;
+  border-radius: 30px;
+  box-shadow: 4px 4px 35px rgb(0, 0, 0, 0.1);
+  margin: 0 auto;
+  position: relative;
+  display: none;
+}
+.agreement-title {
+  width: 100%;
+  height: 62px;
+  text-align: center;
+  border-radius: 30px 30px 0 0;
+  background-color: var(--Primary);
+  padding: 15px 0;
+}
+.agreement-content {
+  width: 764px;
+  height: 544px;
+  margin: 63px auto 20px auto;
+  background-color: #fafafa;
+  line-height: 16px;
+  padding: 20px;
+}
+.check-box {
+  width: 310px;
+  height: 22px;
+  margin: 0 auto;
+  text-align: center;
+}
+.exit {
+  width: 36px;
+  height: 36px;
+  position: absolute;
+  top: 13px;
+  right: 14px;
+  cursor: pointer;
 }
 
 /* =================================== footer =================================== */

@@ -260,3 +260,31 @@ function getCsrfToken() {
     .find((item) => item.includes("csrftoken"))
     .split("=")[1];
 }
+
+// phone-submit 버튼 누르면 모달창 뜨는 UI
+
+$("#phone-submit").on("click", function () {
+  $("#agreement").show();
+});
+
+$(".exit").on("click", function () {
+  $("#agreement").hide();
+});
+
+// 만약 동의 체크되어있을 경우, 비동의 체크하면 동의 체크해제
+// 만약 비동의 체크되어 있을 경우, 동의 체크하면 비동의 체크해제
+
+
+// function is_checked() {
+  
+//   // 1. checkbox element를 찾습니다.
+//   const checkbox = document.getElementById('agree');
+//   const is_checked = $('#agree')
+
+//   // 2. checked 속성을 체크합니다.
+//   const is_checked = checkbox.checked;
+
+//   // 3. 결과를 출력합니다.
+//   console.log(is_checked);
+  
+// }
