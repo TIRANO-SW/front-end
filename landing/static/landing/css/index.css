@@ -6,7 +6,7 @@
   --Primary-b: #275fae;
   --Secondary: #304977;
   --Basic: #66686b;
-  --F-s: 0.75rem;
+  --F-s: 0.75rem; /* 12px */
   --F-sm: 1rem;
   --F-ms: 1.125rem; /* 18px */
   --F-md: 1.375rem; /* 22px */
@@ -61,6 +61,7 @@
 .col-box {
   width: auto;
   padding: 10px 0;
+  position: relative;
 }
 .row-box {
   display: flex;
@@ -83,12 +84,17 @@
   line-height: 15px;
 }
 .question-box {
-  width: 100px;
-  border: 1px solid black;
+  width: 330px;
+  height: 62px;
+  font-size: 0.75rem;
   position: absolute;
+  padding: 16px;
+  padding-left: 40px;
   top: 50px;
   left: 600px;
   display: none;
+  border: 0.1px solid black;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 10% 100%, 10% 30%);
 }
 
 /* =================================== 전체, body 및 태그 CSS =================================== */
@@ -158,19 +164,26 @@ select {
   box-shadow: 3px 5px 10px 0px rgba(0, 0, 0, 0.09);
   color: var(--Primary);
   border-right: 16px solid transparent; /* 화살표 패딩 */
+  border-left: 16px solid transparent; /* 화살표 패딩 */
 }
 input:focus,
 select:focus {
   font-weight: 100;
   outline-color: var(--Primary);
 }
-input[type="checkbox"] {
+input[type="radio"] {
   width: 20px;
   height: 20px;
   vertical-align: text-bottom;
 }
-input[type="checkbox"]+label {
-  padding:0 20px 0 10px;
+input[type="radio"] + label {
+  padding: 0 20px 0 10px;
+}
+button + span {
+  position: absolute;
+  width: 100%;
+  top: 85px;
+  left: 130px;
 }
 
 /* =================================== section =================================== */
@@ -340,6 +353,9 @@ p > span {
   margin-right: 12px;
   float: left;
 }
+.tag-box-wide {
+  width: 120px;
+}
 .input-phone {
   text-align: center;
   margin-top: 71px;
@@ -358,8 +374,8 @@ p > span {
   font-size: var(--F-sm);
 }
 #myChart {
-  width: 668px !important;
-  height: 145px !important;
+  /* width: 100% !important;
+  height: 180px !important; */
   margin: 0 auto;
 }
 
@@ -430,13 +446,20 @@ aside {
   background-color: var(--Primary-b);
   font-size: var(--F-md);
 }
+#wrap {
+  position: relative;
+}
 #agreement {
   width: 900px;
   height: 860px;
   border-radius: 30px;
   box-shadow: 4px 4px 35px rgb(0, 0, 0, 0.1);
+  background-color: white;
   margin: 0 auto;
-  position: relative;
+  position: absolute;
+  top: 1500px;
+  left: 300px;
+  z-index: 3;
   display: none;
 }
 .agreement-title {
