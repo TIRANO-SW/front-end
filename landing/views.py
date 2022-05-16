@@ -11,7 +11,6 @@ def index(request):
 def calculate_median_income(request):
     if request.method == "POST":
         request_body = json.loads(request.body)
-        print(request_body)
         nickname = request_body.get('nickname')
         age = request_body.get('age')
         family_number = request_body.get('family-number')
@@ -41,14 +40,13 @@ def calculate_median_income(request):
             }
         }
 
-        if bokji_type != "None":
-            work_deduction = int(calculate_bokji_type(work,bokji_type))
-            work_deduction_result = compare_default_deduct(work, work_deduction)
-        else:
-            # 근로소득 기본공제 30%이기에 근로소득(work)에 0.7을 곱한 것이다.
-            # work_deduction_result: 최종 소득평가액
-            work_deduction_result = work*0.7
-        
+        # if bokji_type != "None":
+        #     work_deduction = int(calculate_bokji_type(work,bokji_type))
+        #     work_deduction_result = compare_default_deduct(work, work_deduction)
+        # else:
+        #     # 근로소득 기본공제 30%이기에 근로소득(work)에 0.7을 곱한 것이다.
+        #     # work_deduction_result: 최종 소득평가액
+        #     work_deduction_result = work*0.7
             
         return JsonResponse({
             "nickname": nickname,
