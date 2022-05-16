@@ -62,7 +62,7 @@ def calculate_median_income(request):
                 "nickname": nickname,
                 "age": age,
                 "bokjiType": bokji_type,
-                "location": location,
+                "location": "대도시",
                 "medianIncome": 109,
                 "incomeResult": 2119000,
                 "bokjiInfo": [{"title": "국민취업지원제도", "description": "test"}],
@@ -75,26 +75,16 @@ def calculate_bokji_type(work, bokji_type):
     if bokji_type == "participation-income":
         deduction_value = 200000  # 공제액
         deduction_rate = 0.5  # 공제액 공제 이후 추가 공제값
-    elif (bokji_type == "recipient") | (bokji_type == "college"):
+    elif (bokji_type == "recipient" or "college"):
         deduction_value = 400000
         deduction_rate = 0.7
     elif bokji_type == "facility":
         deduction_value = 500000
         deduction_rate = 0.7
-    elif (
-        (bokji_type == "student")
-        | (bokji_type == "handicapped")
-        | (bokji_type == "75-elder")
-        | (bokji_type == "north")
-    ):
+    elif (bokji_type == "student" or "handicapped" or "75-elder" or "north"):
         deduction_value = 200000
         deduction_rate = 0.7
-    elif (
-        (bokji_type == "elder")
-        | (bokji_type == "pregnant")
-        | (bokji_type == "soldier")
-        | (bokji_type == "intern")
-    ):
+    elif (bokji_type == "elder" or "pregnant" or "soldier" or "intern"):
         deduction_value = 0
         deduction_rate = 0.7
 
