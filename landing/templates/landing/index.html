@@ -44,9 +44,9 @@
       <div class="calculate">
         <h1>나의 <strong>중위소득 퍼센트</strong> 계산하기</h1>
         <ul class="tab-group">
-          <li class="tab-item active">Step 1</li>
-          <li class="tab-item">Step 2</li>
-          <li class="tab-item">Step 3</li>
+          <li class="tab-item active">STEP 1</li>
+          <li class="tab-item">STEP 2</li>
+          <li class="tab-item">STEP 3</li>
         </ul>
         <form action="/" method="post">
           <!-- onsubmit="return checkInput(this)" -->
@@ -103,13 +103,15 @@
                 height="15px">
               <input name="work" id="work" type="text" placeholder="근로, 사업 소득">
               <span class="won">₩</span>
-              <div class="question-box">설명입니다.</div>
+              <div class="container">
+                <div class="question-bx"><p>근로 소득, 사업소득, 프리랜서 소득, 임대 소득, 금융 자산 이자 소득, 연금 소득을 모두 포함해 주시면 더 정확해요.</p></div>
+              </div>
             </div>
             <div class="tab-box">
               <p class="f-primary text-start input-name">현재 보유 중인 금융 자산은 얼마인가요?</p>
               <img class="question-icon" src="/static/landing/img/question-circle.svg" alt="물음표" width="15px"
                 height="15px">
-              <input name="asset" id="asset" type="text">
+              <input name="asset" id="asset" type="text" placeholder="금융 자산 입력">
               <span class="won">₩</span>
               <div class="question-box">설명입니다.</div>
             </div>
@@ -117,18 +119,18 @@
               <p class="f-primary text-start input-name">보유 중인 주거용 재산 가액은 얼마인가요?</p>
               <img class="question-icon" src="/static/landing/img/question-circle.svg" alt="물음표" width="15px"
                 height="15px">
-              <input name="living" id="living" type="text" value="">
+              <input name="living" id="living" type="text" placeholder='주거 재산 입력'>
               <span class="won">₩</span>
               <div class="question-box">설명입니다.</div>
             </div>
             <div class="tab-box">
               <p class="f-primary text-start input-name">전세 자금 및 임차 보증금은 얼마인가요?</p>
-              <input name="rent" id="rent" type="text">
+              <input name="rent" id="rent" type="text" placeholder="보증금 입력">
               <span class="won">₩</span>
             </div>
             <div class="tab-box">
               <p class="f-primary text-start input-name">보유 중인 토지의 시가 표준액은 얼마인가요?</p>
-              <input name="land" id="land" type="text">
+              <input name="land" id="land" type="text" placeholder="토지 입력">
               <span class="won">₩</span>
             </div>
             <button class="bt" type="button" id="calculator-second">
@@ -137,36 +139,53 @@
           </div>
           <div class="tab-content">
             <div class="tab-box">
-              <p class="f-primary text-start input-name">최근 3개월 이상 지속적으로 지출하는 의료 비용 월 평균은 얼마인가요?</p>
+              <p class="f-primary text-start input-name">보유 중인 차량 가액은 얼마인가요?</p>
+              <select name="car-type" id="car-type">
+                <option value="normal" selected>일반 자동차</option>
+                <option value="forWork">생업용 자동차</option>
+                <option value="disabled">장애 3급 이상인 등록 장애인</option>
+                <option value="veteran">국가 유공자 및 보훈보상대상</option>
+                <option disabled>연식 10년 이상 또는 200만원 미만</option>
+                <option value="under200-sedan">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(승용) 1,600cc 미만</option>
+                <option value="under200-van">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(승합,화물) 1,000cc 미만</option>
+                <option disabled>연식 10년 이상 또는 500만원 미만</option>
+                <option value="under500-sedan">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(승용) 2,000cc 미만, 본인 및 가구원의 질병, 부상 등의
+                  사유로 소유가 불가피한 자동차</option>
+                <option value="under500-van">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(승합,화물) 2,500cc 미만 7인승 이상, 가구원 6인이상 혹은
+                  3명 이상의 자녀를 둔 가구</option>
+              </select>
+            </div>
+            <div class="tab-box">
+              <p class="f-primary text-start input-name">보유 중인 차량 가액은 얼마인가요?</p>
               <img class="question-icon" src="/static/landing/img/question-circle.svg" alt="물음표" width="15px"
                 height="15px">
-              <input name="medical" id="medical" type="text">
+              <input name="car" id="car" type="text" placeholder="차량 가액 입력">
               <span class="won">₩</span>
               <div class="question-box">설명입니다.</div>
             </div>
             <div class="tab-box">
-              <p class="f-primary text-start input-name">생계 유지 목적 외 보유 중인 차량 가액은 얼마인가요?</p>
+              <p class="f-primary text-start input-name">최근 3개월 이상 지속적으로 지출하는 의료 비용 월 평균은 얼마인가요?</p>
               <img class="question-icon" src="/static/landing/img/question-circle.svg" alt="물음표" width="15px"
                 height="15px">
-              <input name="car" id="car" type="text">
+              <input name="medical" id="medical" type="text" placeholder="의료 비용 입력">
               <span class="won">₩</span>
               <div class="question-box">설명입니다.</div>
             </div>
             <div class="tab-box">
               <p class="f-primary text-start input-name">보유 중인 부채는 얼마인가요?</p>
-              <input name="debt" id="debt" type="text">
+              <input name="debt" id="debt" type="text" placeholder="부채 입력">
               <span class="won">₩</span>
             </div>
           </div>
         </form>
         <div id="calculator-submit">
-          <button class="bt" onclick="getResults(),ShowResultPage()">
-            <p>제출하기</p>
+          <button class="bt" onclick="getResults()">
+            <p>결과 보기</p>
           </button>
         </div>
       </div>
       <div id="result" class="hide">
-        <p class="f-md">{nickname}님</p>
+        <!-- <p class="f-md">{nickname}님</p>
         <p class="f-l">중위소득 기준 범위는 <strong class="f-primary">{result-percent}%</strong> 이에요</p>
         <div class="row space-bet">
           <p>
@@ -194,7 +213,7 @@
         <div class="input-phone">
           <input class="number-box" type="tel" placeholder="휴대폰 번호를 입력해주세요">
           <button class="btn-circle-2 ms-3" type="submit">등록</button>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -244,6 +263,7 @@
     </aside> -->
 
 
+
   <div id="reservation">
     <div class="row row-box">
       <div class="col-md-6 col-box me-5">
@@ -251,8 +271,10 @@
         <p class="f-lg f-white">사전 예약하고 알림 받아보세요</p>
       </div>
       <div class="col-md-6 col-box ms-5">
-        <input id="number-box" type="tel" placeholder="휴대폰 번호를 입력해주세요">
+        <input id="number-box" type="tel" name="number-box" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
+          placeholder="휴대폰 번호를 입력해주세요">
         <button id="phone-submit" class="btn-circle ms-3">등록</button>
+        <span>010-1234-1234 형식으로 입력해주세요</span>
       </div>
     </div>
   </div>
@@ -267,7 +289,8 @@
       <p>1. 개인정보 수집 및 이용동의<br>
         ■ 개인정보의 수집·이용 목적<br>
         <br>
-        (주)Ours(이하 회사라 함)는 '이름' 서비스 제공을 위해 다음의 목적을 위해 개인정보를 수집 및 이용합니다. 수집된 개인정보는 다음의 목적 이외의 용도로는 이용되지 않으며 수집 목적이 변경될 경우
+        (주)Ours(이하 회사라 함)는 '이름' 서비스 제공을 위해 다음의 목적을 위해 개인정보를 수집 및 이용합니다. 수집된 개인정보는 다음의 목적 이외의 용도로는 이용되지 않으며 수집 목적이 변경될
+        경우
         사전에 알리고 동의를 받을 예정입니다.<br>
         <br>
         - 개인의 식별, 서비스 상담, 파인더 활동을 위한 자료 제공, 기타 물품 지급, 활동이력 보관, 콘텐츠 제공, 불만처리 등 민원처리, 고지사항의 전달, 서비스 제공에 따른 요금 정산, 이벤트 및
@@ -297,13 +320,16 @@
         회사는 '이름' 서비스 제공을 위해 오픈 알림 문자 및 알림톡, 기타 서비스 제공 등을 위하여 아래와 같이 이용자의 개인정보를 제공하고 있습니다.<br>
       </p>
     </div>
-    <div class="check-box">
-      <input type="checkbox" name="agree" id="agree" onclick="is_checked()"><label for="agree">동의합니다.</label>
-      <input type="checkbox" name="disagree" id="disagree"><label for="disagree">동의하지 않습니다.</label>
-      <button class="bt" type="button">
-        <p>제출하기</p>
-      </button>
-    </div>
+    <form action="/" method="post">
+      {% csrf_token %}
+      <div class="check-box">
+        <input type="radio" name="agreement" id="agree"><label for="agree">동의합니다.</label>
+        <input type="radio" name="agreement" id="disagree"><label for="disagree">동의하지 않습니다.</label>
+        <button class="bt" type="submit" id="agree-submit" onclick="getPhone()">
+          <p>제출하기</p>
+        </button>
+      </div>
+    </form>
   </div>
 
   <footer>
@@ -345,7 +371,8 @@
     integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous">
     </script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="static/landing/js/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/moment@2.29.3/moment.min.js"></script>
+  <!-- <script src="static/landing/js/chart.js"></script> -->
   <script src="static/landing/js/index.js"></script>
 </body>
 
