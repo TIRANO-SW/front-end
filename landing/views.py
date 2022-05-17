@@ -69,7 +69,7 @@ def deduct_work_income(request_body):
     work = request_body.get('work')
     medical = request_body.get("medical")
     default_deduction_rate = 0.7
-    if work != None:
+    if work != None or 0:
         if bokji_type == "None":
             deduction_value = 0
             deduction_rate = default_deduction_rate
@@ -182,16 +182,16 @@ def deduct_property(request_body, location_dict):
     total_deduction_value = location_deduction["living_deduction"] + debt
     total_deduction = 0 
 
-    if living != None:
+    if living != None or 0:
         living_deduction, total_deduction_value = deduct_living_property(living, location_deduction, debt)
         total_deduction += living_deduction
-    if rent != None:
+    if rent != None or 0:
         rent_deduction, total_deduction_value = deduct_rent_property(rent, total_deduction_value)
         total_deduction += rent_deduction
-    if land != None:
+    if land != None or 0:
         general_deduction, total_deduction_value = deduct_general_property(land, total_deduction_value)
         total_deduction += general_deduction
-    if asset != None:
+    if asset != None or 0:
         finance_deduction = deduct_finance_property(asset, total_deduction_value)
         total_deduction += finance_deduction
         
