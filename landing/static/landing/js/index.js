@@ -352,6 +352,8 @@ function getPhone() {
   });
 }
 
+// 리팩토링 어떻게 하면 좋을까?
+// innerHTML부분을 함수로 빼내고 싶은데 그러면 차트 생성에 문제가 생긴다.
 let tempGlobalResponseBody = null;
 function updateWithResults(responseBody) {
   // console.log(responseBody);
@@ -376,6 +378,16 @@ function updateWithResults(responseBody) {
     .slice(1);
   let resultTotal = responseBody.incomeResult;
   let bokji = responseBody.bokjiInfo[0].title;
+  let service = responseBody.bokjiInfo[0].description;
+
+// bokjiInfo 배열 갯수 만큼 div 추가해준다.
+  let bokjiLength = responseBody.bokjiInfo.length;
+  let infoRight = document.querySelector('.info-right');
+  for (var i = 0; i < bokjiLength; i++) {
+    // 길이 만큼 반복문 돌면서 div생성하고
+    // 반복문 안에 ${responseBody.bokjiInfo[i].title}, ${responseBody.bokjiInfo[i].description} 속 []에 i 값 넣기.
+    infoRight.innerHTML += `<div class="mb-2"><span class="tag-box tag-box-wide">${responseBody.bokjiInfo[i].title}</span> ${responseBody.bokjiInfo[i].description}</div>`
+  }
 
   let innerElement = `<p class="f-md">${nickname}님</p>
   <p class="f-l">중위소득 기준 범위는 <strong class="f-primary">${resultPercent}%</strong> 이에요</p>
@@ -396,8 +408,6 @@ function updateWithResults(responseBody) {
     </div>
     <div class="col-md-8 box-sha info-right">
       <p class="f-ms f-primary mb-3"><strong>${nickname}님께 추천드리는 복지혜택</strong></p>
-      <div class="mb-2"><span class="tag-box tag-box-wide">${bokji}</span> 혜택) 활동 참여수당 최대 19.5만원</div>
-      <div class="mb-2"><span class="tag-box tag-box-wide">${bokji}</span> 혜택) 방문,화상,전화 상담</div>
     </div>
   </div>
   <p class="f-ms f-primary recommend"><strong>서비스 오픈 알림을  받아보실 수 있어️요</strong>  😁 </p>

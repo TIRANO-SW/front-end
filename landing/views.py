@@ -56,6 +56,14 @@ def calculate_median_income(request):
                         "title": "국민취업지원제도", 
                         "description": "test"
                     },
+                    {
+                        "title": "내일채움공제", 
+                        "description": "test"
+                    },
+                    {
+                        "title": "무료상담복지", 
+                        "description": "test"
+                    },
                 ]
             }
         )
