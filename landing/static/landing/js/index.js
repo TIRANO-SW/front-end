@@ -3,6 +3,7 @@ moment.locale("ko");
 // 계산기 Tab 기능 구현
 
 const tab = document.querySelectorAll(".tab-item");
+const tabGroup = document.querySelector(".tab-content-group");
 const tabContent = document.querySelectorAll(".tab-content");
 const resultBtnContainer = document.getElementById("calculator-submit");
 
@@ -11,26 +12,32 @@ const resultBtnContainer = document.getElementById("calculator-submit");
 function tabOpen(param) {
   for (var i = 0; i < tab.length; i++) {
     tab[i].classList.remove("active");
-    tabContent[i].classList.remove("show");
+    // tabContent[i].classList.remove("show");
   }
   tab[param].classList.add("active");
-  tabContent[param].classList.add("show");
+  // tabContent[param].classList.add("show");
   if (param == 0 || 1) {
     resultBtnContainer.style.display = "none";
   }
   if (param == 2) {
     resultBtnContainer.style.display = "flex";
+    // resultBtnContainer.style.marginTop = "-100px";
+    resultBtnContainer.style.zIndex = "3";
   }
 }
 
 tab[0].addEventListener("click", () => {
   tabOpen(0);
+  tabGroup.style.transform = "translateX(780px)";
 });
 tab[1].addEventListener("click", () => {
   tabOpen(1);
+  tabGroup.style.transform = "translateX(0px)";
 });
 tab[2].addEventListener("click", () => {
   tabOpen(2);
+  tabGroup.style.transform = "translateX(-780px)";
+  // resultBtnContainer.style.transform
 });
 
 // 계산기 form 다음 버튼 기능 구현
@@ -39,10 +46,22 @@ const calFirst = document.getElementById("calculator-first");
 const calSecond = document.getElementById("calculator-second");
 
 calFirst.addEventListener("click", () => {
+  let allFilled = checkVacant();
+  if (!allFilled) {
+    alert("빈칸을 채워주세요");
+    return;
+  }
   tabOpen(1);
+  tabGroup.style.transform = "translateX(0px)";
 });
 calSecond.addEventListener("click", () => {
+  let allFilled = checkVacant();
+  if (!allFilled) {
+    alert("빈칸을 채워주세요");
+    return;
+  }
   tabOpen(2);
+  tabGroup.style.transform = "translateX(-780px)";
 });
 
 // 숫자에 , 로 구분해주는 구성
@@ -140,7 +159,7 @@ openQuestionBox();
 // 계산기 값에 빈칸 있을 경우 전송을 막는 기능
 // 색상 변경 기능
 function setColor(el, bg) {
-  if (el.style) el.style.backgroundColor = bg;
+  if (el.style) el.style.border = "1px solid #F36A5D";
 }
 
 function checkInput(form) {
@@ -207,21 +226,93 @@ function checkInput(form) {
   } else {
     setColor(form.debt, bgGood);
   }
-  if (!valid) alert("빈칸을 채워 주세요");
+  if (!valid) {
+    alert("빈칸을 채워 주세요");
+  }
+
   return valid;
 }
-
 // 제출 버튼 클릭시 결과 보여주는 기능
 const calculate = document.querySelector(".calculate");
 const resultTab = document.getElementById("result");
 
-// function ShowResultPage() {
-//   calculate.classList.add("hide");
-//   resultTab.classList.remove("hide");
-//   resultTab.classList.add("show");
-// }
+function checkVacant() {
+  var bgBad = "#F36A5D";
+  var bgGood = "";
+  let allFilled = true;
+  if (nicknameElement.value == "") {
+    allFilled = false;
+    setColor(nicknameElement, bgBad);
+  } else {
+    setColor(nicknameElement, bgGood);
+  }
+  if (ageElement.value == "") {
+    allFilled = false;
+    setColor(ageElement, bgBad);
+  } else {
+    setColor(ageElement, bgGood);
+  }
+  if (workElement.value == "") {
+    allFilled = false;
+    setColor(workElement, bgBad);
+  } else {
+    setColor(workElement, bgGood);
+  }
+  if (livingElement.value == "") {
+    allFilled = false;
+    setColor(livingElement, bgBad);
+  } else {
+    setColor(livingElement, bgGood);
+  }
+  if (assetElement.value == "") {
+    allFilled = false;
+    setColor(assetElement, bgBad);
+  } else {
+    setColor(assetElement, bgGood);
+  }
+  if (landElement.value == "") {
+    allFilled = false;
+    setColor(landElement, bgBad);
+  } else {
+    setColor(landElement, bgGood);
+  }
+  if (rentElement.value == "") {
+    allFilled = false;
+    setColor(rentElement, bgBad);
+  } else {
+    setColor(rentElement, bgGood);
+  }
+  if (carElement.value == "") {
+    allFilled = false;
+    setColor(carElement, bgBad);
+  } else {
+    setColor(carElement, bgGood);
+  }
+  if (medicalElement.value == "") {
+    allFilled = false;
+    setColor(medicalElement, bgBad);
+  } else {
+    setColor(medicalElement, bgGood);
+  }
+  if (debtElement.value == "") {
+    allFilled = false;
+    setColor(debtElement, bgBad);
+  } else {
+    setColor(debtElement, bgGood);
+  }
+  return allFilled;
+}
 
 function getResults() {
+  // 함수는 리턴값을 가질 수도 있고 없을 수 도 있다.
+  // 어떤 실행의 결과값을 얻고 싶다면 리턴을 사용한다.
+  // 일련의 과정들을 실행하기만 하고 싶으면 리턴을 사용하지 않는다.
+  let allFilled = checkVacant();
+  if (!allFilled) {
+    alert("빈칸을 채워주세요");
+    return;
+  }
+
   fetch("/cal-data/", {
     method: "POST",
     headers: {
@@ -271,7 +362,7 @@ function getPhone() {
 
 let tempGlobalResponseBody = null;
 function updateWithResults(responseBody) {
-  console.log(responseBody);
+  // console.log(responseBody);
   tempGlobalResponseBody = responseBody;
   calculate.classList.add("hide");
   resultTab.classList.remove("hide");
@@ -660,7 +751,7 @@ const is_agree = document.querySelector('input[name="agreement"]');
 
 function agreement(event) {
   if (is_agree.checked == true) {
-    console.log("보냈어요");
+    alert("신청해주셔서 감사합니다.");
   } else {
     alert("개인정보 제공 동의서에 동의해주세요.");
     event.preventDefault();

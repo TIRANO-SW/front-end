@@ -30,8 +30,8 @@
         <div class="row row-box">
           <div class="col-md-6 col-box">
             <div class="section-left">
-              <p class="f-md"><strong>복지 서비스</strong>를 누리는 <strong>첫 걸음</strong></p>
-              <p class="f-lg">나의 <strong>중위소득 퍼센트</strong>를 아는 것</p>
+              <p class="f-md f-light">나를 위한 맞춤 복지서비스 </p>
+              <p class="f-lg">페어링에서 더 쉽고 간편하게</p>
             </div>
           </div>
           <div class="col-md-6 col-box"><img src="static/landing/img/img_main_1.png" alt="main-1" width="270px"
@@ -41,23 +41,24 @@
       </div>
     </section>
     <div id="calculation">
-      <div class="calculate">
-        <h1>나의 <strong>중위소득 퍼센트</strong> 계산하기</h1>
+      <div class="calculate clearfix">
+        <h1>나의 <strong>중위소득 분위</strong> 계산 시작하기 😁</h1>
         <ul class="tab-group">
           <li class="tab-item active">STEP 1</li>
           <li class="tab-item">STEP 2</li>
           <li class="tab-item">STEP 3</li>
         </ul>
-        <form action="/" method="post">
+        <!-- <form action="/" method="post"> -->
           <!-- onsubmit="return checkInput(this)" -->
           {% csrf_token %}
-          <div class="tab-content show">
-            <p class="f-primary text-start input-name">닉네임</p>
-            <input name="nickname" id="nickname" type="text" value="익명의 복지왕">
-            <p class="f-primary text-start input-name">나이</p>
-            <input name="age" id="age" type="text" value="">
-            <p class="f-primary text-start input-name">가구원수</p>
-            <div class="select-wrapper"><select name="family-number" id="family-number" placeholder="adkfjdif">
+          <div class="tab-content-group clearfix">
+            <div class="tab-content">
+              <p class="f-primary text-start input-name">닉네임</p>
+              <input name="nickname" id="nickname" type="text" placeholder="익명의 복지왕">
+              <p class="f-primary text-start input-name">나이</p>
+              <input name="age" id="age" type="text" value="">
+              <p class="f-primary text-start input-name">가구원수</p>
+              <select name="family-number" id="family-number" placeholder="adkfjdif">
                 <option value="1" selected>1인 가구</option>
                 <option value="2">2인 가구</option>
                 <option value="3">3인 가구</option>
@@ -67,9 +68,8 @@
                 <option value="7">7인 가구</option>
                 <option value="8">8인 가구</option>
               </select>
-            </div>
-            <p class="f-primary text-start input-name">수급자 유형</p>
-            <div class="select-wrapper"><select name="bokji-type" id="bokji-type">
+              <p class="f-primary text-start input-name">수급자 유형</p>
+              <select name="bokji-type" id="bokji-type">
                 <option value=None selected>없음</option>
                 <option value="facility">아동시설퇴소 및 가정위탁보호 종료 5년 이내 청년</option>
                 <option value="recipient">24세 이하 수급(권)자</option>
@@ -84,105 +84,123 @@
                 <option value="soldier">사회복무요원, 상근예비역</option>
                 <option value="intern">행정기관 및 공공기관의 행정인턴(행정인턴 참여소득)</option>
               </select>
-            </div>
-            <p class="f-primary text-start input-name">거주지</p>
-            <div class="select-wrapper"><select name="location" id="location">
+              <p class="f-primary text-start input-name">거주지</p>
+              <select name="location" id="location">
                 <option value="big-city" selected>대도시 : 특별시, 광역시, 특례시</option>
                 <option value="medium-city">중소도시 : 시, 도</option>
                 <option value="small-city">농어촌 : 구</option>
               </select>
+              <button class="bt" type="button" id="calculator-first">
+                <p>다음</p>
+              </button>
             </div>
-            <button class="bt" type="button" id="calculator-first">
-              <p>다음</p>
-            </button>
-          </div>
-          <div class="tab-content">
-            <div class="tab-box">
-              <p class="f-primary text-start input-name">최근 3개월 이상 지속적으로 받고 있는 수입(지난 달 기준)은 얼마인가요?</p>
-              <img class="question-icon" src="/static/landing/img/question-circle.svg" alt="물음표" width="15px"
-                height="15px">
-              <input name="work" id="work" type="text" placeholder="근로, 사업 소득">
-              <span class="won">₩</span>
-              <div class="container">
-                <div class="question-bx"><p>근로 소득, 사업소득, 프리랜서 소득, 임대 소득, 금융 자산 이자 소득, 연금 소득을 모두 포함해 주시면 더 정확해요.</p></div>
+            <div class="tab-content">
+              <div class="tab-box">
+                <p class="f-primary text-start input-name">최근 3개월 이상 지속적으로 받고 있는 수입(지난 달 기준)은 얼마인가요?</p>
+                <img class="question-icon" src="/static/landing/img/question-circle.svg" alt="물음표" width="15px"
+                  height="15px">
+                <input name="work" id="work" type="text" placeholder="근로, 사업 소득">
+                <span class="won">₩</span>
+                <div class="question-box">
+                  <p>근로 소득, 사업소득, 프리랜서 소득, 임대 소득, 금융 자산 이자 소득, 연금 소득을 모두 포함해 주시면 더 정확해요.</p>
+                </div>
+              </div>
+              <div class="tab-box">
+                <p class="f-primary text-start input-name">현재 보유 중인 금융 자산은 얼마인가요?</p>
+                <img class="question-icon" src="/static/landing/img/question-circle.svg" alt="물음표" width="15px"
+                  height="15px">
+                <input name="asset" id="asset" type="text" placeholder="금융 자산 입력">
+                <span class="won">₩</span>
+                <div class="question-box">
+                  <p>현금, 수표, 어음, 주식, 국공채 등 유가증권, 예금, 적금, 부금, 보험, 수익증권등을 포함(부채를 제외한)한 금액을 입력해 주세요.</p>
+                </div>
+              </div>
+              <div class="tab-box">
+                <p class="f-primary text-start input-name">보유 중인 주거용 재산 가액은 얼마인가요?</p>
+                <img class="question-icon" src="/static/landing/img/question-circle.svg" alt="물음표" width="15px"
+                  height="15px">
+                <input name="living" id="living" type="text" placeholder='주거 재산 입력'>
+                <span class="won">₩</span>
+                <div class="question-box">
+                  <p>(세대주 기준) 보유 중인 주택 재산액을 모두 포함해 주세요.</p>
+                </div>
+              </div>
+              <div class="tab-box">
+                <p class="f-primary text-start input-name">전세 자금 및 임차 보증금은 얼마인가요?</p>
+                <input name="rent" id="rent" type="text" placeholder="보증금 입력">
+                <span class="won">₩</span>
+              </div>
+              <div class="tab-box">
+                <p class="f-primary text-start input-name">보유 중인 토지의 시가 표준액은 얼마인가요?</p>
+                <input name="land" id="land" type="text" placeholder="토지 입력">
+                <span class="won">₩</span>
+              </div>
+              <button class="bt" type="button" id="calculator-second">
+                <p>다음</p>
+              </button>
+            </div>
+            <div class="tab-content">
+              <div class="tab-box">
+                <p class="f-primary text-start input-name">보유 중인 차량 종류는 무엇인가요?</p>
+                <select name="car-type" id="car-type">
+                  <option value=None selected>없음</option>
+                  <option value="normal">일반 자동차</option>
+                  <option value="forWork">생업용 자동차</option>
+                  <option value="disabled">장애 3급 이상인 등록 장애인</option>
+                  <option value="veteran">국가 유공자 및 보훈보상대상</option>
+                  <option disabled>연식 10년 이상 또는 200만원 미만</option>
+                  <option value="under200-sedan">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(승용) 1,600cc 미만</option>
+                  <option value="under200-van">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(승합,화물) 1,000cc 미만</option>
+                  <option disabled>연식 10년 이상 또는 500만원 미만</option>
+                  <option value="under500-sedan">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(승용) 2,000cc 미만, 본인 및 가구원의 질병, 부상
+                    등의
+                    사유로 소유가 불가피한 자동차</option>
+                  <option value="under500-van">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(승합,화물) 2,500cc 미만 7인승 이상, 가구원 6인이상
+                    혹은
+                    3명 이상의 자녀를 둔 가구</option>
+                </select>
+              </div>
+              <div class="tab-box">
+                <p class="f-primary text-start input-name">보유 중인 차량 가액은 얼마인가요?</p>
+                <img class="question-icon" src="/static/landing/img/question-circle.svg" alt="물음표" width="15px"
+                  height="15px">
+                <input name="car" id="car" type="text" placeholder="차량 가액 입력">
+                <span class="won">₩</span>
+                <div class="question-box wide">
+                  <p>- 내 차량 가액 조회하기 https://www.kidi.or.kr/user/car/carprice.do<br>
+                    <br>
+                    - 재산 가액 산정에서 제외 / 감면되는 자동차 <br>
+                    장애인 사용 자동차로 장애정도가 심한 장애인인 수급권자 본인의 직접적인 이동수단으로 활용되고 있는 배기량 2,000cc 이하의 자동차는 가구당 1대에 한하여 재산산정 시
+                    제외<br>
+                    <br>
+                    - 자동차가 생계유지를 위한 직접적인 수단이 되는 경우(일반재산의 소득 환산율이 적용되는 생업용 자동차) 1대에 한하여 자동차가격의 50%만 재산가액으로 산정
+                  </p>
+                </div>
+              </div>
+              <div class="tab-box">
+                <p class="f-primary text-start input-name">최근 3개월 이상 지속적으로 지출하는 의료 비용 월 평균은 얼마인가요?</p>
+                <img class="question-icon" src="/static/landing/img/question-circle.svg" alt="물음표" width="15px"
+                  height="15px">
+                <input name="medical" id="medical" type="text" placeholder="의료 비용 입력">
+                <span class="won">₩</span>
+                <div class="question-box">
+                  <p>의료비 지출액 : 지속적으로 지출하는 의료 비용은 만성 질환 및 질병을 뜻합니다.</p>
+                </div>
+              </div>
+              <div class="tab-box">
+                <p class="f-primary text-start input-name">보유 중인 부채는 얼마인가요?</p>
+                <input name="debt" id="debt" type="text" placeholder="부채 입력">
+                <span class="won">₩</span>
+              </div>
+
+              <div id="calculator-submit">
+                <button class="bt" onclick="getResults()">
+                  <p>결과 보기</p>
+                </button>
               </div>
             </div>
-            <div class="tab-box">
-              <p class="f-primary text-start input-name">현재 보유 중인 금융 자산은 얼마인가요?</p>
-              <img class="question-icon" src="/static/landing/img/question-circle.svg" alt="물음표" width="15px"
-                height="15px">
-              <input name="asset" id="asset" type="text" placeholder="금융 자산 입력">
-              <span class="won">₩</span>
-              <div class="question-box">설명입니다.</div>
-            </div>
-            <div class="tab-box">
-              <p class="f-primary text-start input-name">보유 중인 주거용 재산 가액은 얼마인가요?</p>
-              <img class="question-icon" src="/static/landing/img/question-circle.svg" alt="물음표" width="15px"
-                height="15px">
-              <input name="living" id="living" type="text" placeholder='주거 재산 입력'>
-              <span class="won">₩</span>
-              <div class="question-box">설명입니다.</div>
-            </div>
-            <div class="tab-box">
-              <p class="f-primary text-start input-name">전세 자금 및 임차 보증금은 얼마인가요?</p>
-              <input name="rent" id="rent" type="text" placeholder="보증금 입력">
-              <span class="won">₩</span>
-            </div>
-            <div class="tab-box">
-              <p class="f-primary text-start input-name">보유 중인 토지의 시가 표준액은 얼마인가요?</p>
-              <input name="land" id="land" type="text" placeholder="토지 입력">
-              <span class="won">₩</span>
-            </div>
-            <button class="bt" type="button" id="calculator-second">
-              <p>다음</p>
-            </button>
           </div>
-          <div class="tab-content">
-            <div class="tab-box">
-              <p class="f-primary text-start input-name">보유 중인 차량 가액은 얼마인가요?</p>
-              <select name="car-type" id="car-type">
-                <option value="normal" selected>일반 자동차</option>
-                <option value="forWork">생업용 자동차</option>
-                <option value="disabled">장애 3급 이상인 등록 장애인</option>
-                <option value="veteran">국가 유공자 및 보훈보상대상</option>
-                <option disabled>연식 10년 이상 또는 200만원 미만</option>
-                <option value="under200-sedan">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(승용) 1,600cc 미만</option>
-                <option value="under200-van">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(승합,화물) 1,000cc 미만</option>
-                <option disabled>연식 10년 이상 또는 500만원 미만</option>
-                <option value="under500-sedan">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(승용) 2,000cc 미만, 본인 및 가구원의 질병, 부상 등의
-                  사유로 소유가 불가피한 자동차</option>
-                <option value="under500-van">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(승합,화물) 2,500cc 미만 7인승 이상, 가구원 6인이상 혹은
-                  3명 이상의 자녀를 둔 가구</option>
-              </select>
-            </div>
-            <div class="tab-box">
-              <p class="f-primary text-start input-name">보유 중인 차량 가액은 얼마인가요?</p>
-              <img class="question-icon" src="/static/landing/img/question-circle.svg" alt="물음표" width="15px"
-                height="15px">
-              <input name="car" id="car" type="text" placeholder="차량 가액 입력">
-              <span class="won">₩</span>
-              <div class="question-box">설명입니다.</div>
-            </div>
-            <div class="tab-box">
-              <p class="f-primary text-start input-name">최근 3개월 이상 지속적으로 지출하는 의료 비용 월 평균은 얼마인가요?</p>
-              <img class="question-icon" src="/static/landing/img/question-circle.svg" alt="물음표" width="15px"
-                height="15px">
-              <input name="medical" id="medical" type="text" placeholder="의료 비용 입력">
-              <span class="won">₩</span>
-              <div class="question-box">설명입니다.</div>
-            </div>
-            <div class="tab-box">
-              <p class="f-primary text-start input-name">보유 중인 부채는 얼마인가요?</p>
-              <input name="debt" id="debt" type="text" placeholder="부채 입력">
-              <span class="won">₩</span>
-            </div>
-          </div>
-        </form>
-        <div id="calculator-submit">
-          <button class="bt" onclick="getResults()">
-            <p>결과 보기</p>
-          </button>
-        </div>
+        <!-- </form> -->
       </div>
       <div id="result" class="hide">
         <!-- <p class="f-md">{nickname}님</p>
@@ -215,6 +233,8 @@
           <button class="btn-circle-2 ms-3" type="submit">등록</button>
         </div> -->
       </div>
+      <p class="f-basic" style="text-align: center; margin-top:24px;">입력하신 정보는 사용자 브라우저 쿠키에만 저장되며, 클래버리에는 데이터가 남지 않습니다.
+      </p>
     </div>
   </div>
   <article>
@@ -237,32 +257,6 @@
       </div>
     </div>
   </article>
-  <!-- <aside>
-      <div id="aside-wrap">
-        <div class="aside-item">
-          <p class="f-md"><strong>주거</strong></p>
-          <p class="f-sm mt-2">안정적인 주거생활</p>
-        </div>
-        <div class="aside-item">
-          <p class="f-md"><strong>의료/보건</strong></p>
-          <p class="f-sm mt-2">건강을 평등하게 <br>보장</p>
-        </div>
-        <div class="aside-item">
-          <p class="f-md"><strong>교육</strong></p>
-          <p class="f-sm mt-2">공평하게 학습할 <br>권리</p>
-        </div>
-        <div class="aside-item">
-          <p class="f-md"><strong>생활/지역</strong></p>
-          <p class="f-sm mt-2">시민 생활의<br>안정성 보장</p>
-        </div>
-        <div class="aside-item">
-          <p class="f-md"><strong>취업</strong></p>
-          <p class="f-sm mt-2">최소한의 소득<br>이상을 보장</p>
-        </div>
-      </div>
-    </aside> -->
-
-
 
   <div id="reservation">
     <div class="row row-box">
@@ -335,7 +329,7 @@
   <footer>
     <div class="row footer-box">
       <div class="col-md-6 footer-left">
-        <p>OURS</p>
+        <img class="logo" src="static/landing/img/logo.png" alt="logo" width="130px" height="20px">
       </div>
       <div class="col-md-6 footer-right">
         <div class="pe-5">

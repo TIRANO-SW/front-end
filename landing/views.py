@@ -14,6 +14,8 @@ def get_phone(request):
 
 
 def index(request):
+    if request.method == "POST":
+        return redirect("/")
     return render(request, "landing/index.html")
 
 

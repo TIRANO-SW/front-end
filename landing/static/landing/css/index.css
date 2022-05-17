@@ -40,6 +40,9 @@
 .f-basic {
   color: var(--Basic);
 }
+.f-light {
+  font-weight: lighter;
+}
 .g-light {
   color: #dcdcdc;
   font-weight: 100;
@@ -79,22 +82,37 @@
 .question-icon {
   position: absolute;
   top: 35px;
-  left: 550px;
+  left: -3px;
   vertical-align: middle;
   line-height: 15px;
 }
 .question-box {
-  width: 330px;
-  height: 62px;
+  width: 355px;
+  height: 76px;
   font-size: 0.75rem;
   position: absolute;
-  padding: 16px;
-  padding-left: 40px;
+  padding: 22px;
+  padding-left: 36px;
   top: 50px;
-  left: 600px;
+  left: -10px;
   display: none;
-  border: 0.1px solid black;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 10% 100%, 10% 30%);
+  background-image: url("../img/Union.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 10;
+  /* clip-path: polygon(0 0, 100% 0, 100% 100%, 10% 100%, 10% 30%); */
+}
+.wide {
+  width: 355px;
+  height: 245px;
+  background-image: url("../img/Union_wide.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.question-box > p {
+  color: var(--Basic);
+  text-align: left;
 }
 
 /* =================================== 전체, body 및 태그 CSS =================================== */
@@ -113,12 +131,16 @@ h1 {
   text-align: left;
   color: black;
   padding-left: 100px;
+  font-weight: 300;
 }
 p {
   color: black;
   letter-spacing: 1px;
   margin: 0;
   letter-spacing: -0.5px;
+}
+::placeholder {
+  color: #dcdcdc;
 }
 button {
   background-color: transparent;
@@ -234,14 +256,26 @@ select:hover {
   padding: 50px;
   box-shadow: 4px 4px 35px rgb(0, 0, 0, 0.1);
   background-color: white;
+  overflow: hidden;
+}
+.tab-content-group {
+  width: auto;
+  display: flex;
+  justify-content: center;
+  transform: translateX(780px);
+  
+  transition: all 0.5s;
 }
 .tab-content {
   width: 580px;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   text-align: center;
-  display: none;
+  /* display: none; */
   position: relative;
-  transition: all 1s;
+  
+}
+.calculate .tab-content:nth-child(2) {
+  margin: 0 200px;
 }
 .tab-group {
   width: 580px;
@@ -249,7 +283,6 @@ select:hover {
   justify-content: center;
   text-align: center;
   margin: 50px auto 0;
-  transition: all 0.1s;
 }
 .tab-item {
   width: 190px;
@@ -258,6 +291,16 @@ select:hover {
   border-bottom: 1px solid gray;
   background-color: transparent;
   cursor: pointer;
+  transition: all 0.5s;
+}
+.active {
+  border-bottom: 3px solid var(--Primary);
+}
+.show {
+  display: block;
+}
+.hide {
+  display: none;
 }
 .input-name {
   padding: 30px 0 5px 20px;
@@ -272,17 +315,15 @@ select:hover {
   background-color: var(--Primary);
   margin-top: 50px;
 }
+.result-bt {
+  width: 180px;
+  height: 50px;
+  border-radius: 50px;
+  background-color: var(--Primary);
+  margin-top: -100px;
+}
 .tab-box {
   position: relative;
-}
-.active {
-  border-bottom: 3px solid var(--Primary);
-}
-.show {
-  display: block;
-}
-.hide {
-  display: none;
 }
 #result {
   width: 900px;
@@ -384,7 +425,7 @@ p > span {
 article {
   width: 1024px;
   text-align: center;
-  margin: -50px auto 100px;
+  margin: -120px auto 100px;
 }
 aside {
   background-color: var(--Primary);
@@ -458,7 +499,8 @@ aside {
   margin: 0 auto;
   position: absolute;
   top: 1500px;
-  left: 300px;
+  transform: translateX(-50%);
+  left: 50%;
   z-index: 3;
   display: none;
 }
