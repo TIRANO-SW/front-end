@@ -46,20 +46,10 @@ const calFirst = document.getElementById("calculator-first");
 const calSecond = document.getElementById("calculator-second");
 
 calFirst.addEventListener("click", () => {
-  let allFilled = checkVacant();
-  if (!allFilled) {
-    alert("빈칸을 채워주세요");
-    return;
-  }
   tabOpen(1);
   tabGroup.style.transform = "translateX(0px)";
 });
 calSecond.addEventListener("click", () => {
-  let allFilled = checkVacant();
-  if (!allFilled) {
-    alert("빈칸을 채워주세요");
-    return;
-  }
   tabOpen(2);
   tabGroup.style.transform = "translateX(-780px)";
 });
