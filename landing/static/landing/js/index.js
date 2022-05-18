@@ -107,6 +107,8 @@ debtElement.addEventListener("input", (event) =>
   changeValue(event.target.value, debtElement)
 );
 
+// 커뮤니티에 hover시 준비중입니다 메시지
+
 // question-icon에 마우스 올렸을 때 설명 박스 띄워주는 기능
 
 const questionIcon = document.querySelectorAll(".question-icon");
@@ -227,8 +229,8 @@ const calculate = document.querySelector(".calculate");
 const resultTab = document.getElementById("result");
 
 function checkVacant() {
-  var bgBad = "#F36A5D";
-  var bgGood = "";
+  let bgBad = "#F36A5D";
+  let bgGood = "";
   let allFilled = true;
   if (nicknameElement.value == "") {
     allFilled = false;
@@ -242,64 +244,69 @@ function checkVacant() {
   } else {
     setColor(ageElement, bgGood);
   }
-  if (workElement.value == "") {
-    allFilled = false;
-    setColor(workElement, bgBad);
-  } else {
-    setColor(workElement, bgGood);
-  }
-  if (livingElement.value == "") {
-    allFilled = false;
-    setColor(livingElement, bgBad);
-  } else {
-    setColor(livingElement, bgGood);
-  }
-  if (assetElement.value == "") {
-    allFilled = false;
-    setColor(assetElement, bgBad);
-  } else {
-    setColor(assetElement, bgGood);
-  }
-  if (landElement.value == "") {
-    allFilled = false;
-    setColor(landElement, bgBad);
-  } else {
-    setColor(landElement, bgGood);
-  }
-  if (rentElement.value == "") {
-    allFilled = false;
-    setColor(rentElement, bgBad);
-  } else {
-    setColor(rentElement, bgGood);
-  }
-  if (carElement.value == "") {
-    allFilled = false;
-    setColor(carElement, bgBad);
-  } else {
-    setColor(carElement, bgGood);
-  }
-  if (medicalElement.value == "") {
-    allFilled = false;
-    setColor(medicalElement, bgBad);
-  } else {
-    setColor(medicalElement, bgGood);
-  }
-  if (debtElement.value == "") {
-    allFilled = false;
-    setColor(debtElement, bgBad);
-  } else {
-    setColor(debtElement, bgGood);
-  }
+  // if (workElement.value == "") {
+  //   allFilled = false;
+  //   setColor(workElement, bgBad);
+  // } else {
+  //   setColor(workElement, bgGood);
+  // }
+  // if (livingElement.value == "") {
+  //   allFilled = false;
+  //   setColor(livingElement, bgBad);
+  // } else {
+  //   setColor(livingElement, bgGood);
+  // }
+  // if (assetElement.value == "") {
+  //   allFilled = false;
+  //   setColor(assetElement, bgBad);
+  // } else {
+  //   setColor(assetElement, bgGood);
+  // }
+  // if (landElement.value == "") {
+  //   allFilled = false;
+  //   setColor(landElement, bgBad);
+  // } else {
+  //   setColor(landElement, bgGood);
+  // }
+  // if (rentElement.value == "") {
+  //   allFilled = false;
+  //   setColor(rentElement, bgBad);
+  // } else {
+  //   setColor(rentElement, bgGood);
+  // }
+  // if (carElement.value == "") {
+  //   allFilled = false;
+  //   setColor(carElement, bgBad);
+  // } else {
+  //   setColor(carElement, bgGood);
+  // }
+  // if (medicalElement.value == "") {
+  //   allFilled = false;
+  //   setColor(medicalElement, bgBad);
+  // } else {
+  //   setColor(medicalElement, bgGood);
+  // }
+  // if (debtElement.value == "") {
+  //   allFilled = false;
+  //   setColor(debtElement, bgBad);
+  // } else {
+  //   setColor(debtElement, bgGood);
+  // }
   return allFilled;
 }
-
+let bottomPhone = false;
 function getResults(flag) {
+  if (bottomPhone){
+    return;
+  }
   // 함수는 리턴값을 가질 수도 있고 없을 수 도 있다.
   // 어떤 실행의 결과값을 얻고 싶다면 리턴을 사용한다.
   // 일련의 과정들을 실행하기만 하고 싶으면 리턴을 사용하지 않는다.
   let allFilled = checkVacant();
   if (!allFilled) {
-    alert("빈칸을 채워주세요");
+    alert("필수 항목을 채워주세요");
+    tabOpen(0);
+    tabGroup.style.transform = "translateX(780px)";
     return;
   }
 
@@ -337,23 +344,47 @@ function getResults(flag) {
 
 // 전화번호 입력 형식 기능 구현
 // function checkPhone() {
-//   var patternPhone = /01[016789]-[^0][0-9]{2,3}-[0-9]{3,4}/;
 
 // }
 
-async function getPhone() {
-  console.log("send phone");
+// if (!nicknameElement.value=="") {
+//   setColor(nicknameElement, bgGood);
+// }
+// if (!ageElement.value=="") {
+//   setColor(ageElement, bgGood);
+// }
+
+// checkPhoneVacant 기능 구현
+
+function checkPhoneVacant(ret = false) {
   let resultPhoneElement = document.getElementById("result-phone-input");
   let phoneNumber = resultPhoneElement
     ? resultPhoneElement.value
     : phoneElement.value;
+
+  var patternPhone = /01[016789]-[^0][0-9]{2,3}-[0-9]{3,4}/;
+  
   if (!phoneNumber) {
     alert("번호를 입력해 주세요.");
     return false;
-  } else if (false /* valPhone(phoneNumber) */) {
+  } else if (!patternPhone.test(phoneNumber)) {
     alert("010 - 1234 - 5678 형식에 맞춰 입력해주세요!");
     return false;
+  } else {
+    if (ret)
+      return phoneNumber;
+    else return true;
   }
+}
+
+async function getPhone() {
+  let phoneNumber = checkPhoneVacant(true);
+  // if (checkPhoneVacant()) {
+  //   $("#result-phone").on("click", function () {
+  //     $("#agreement").fadeIn();
+  //   });
+  // }
+  // checkPhoneVacant();
   let response = await fetch("/phone/", {
     method: "POST",
     headers: {
@@ -406,7 +437,7 @@ function updateWithResults(responseBody) {
   // nameBokji.classList.add('mb-2');
 
   let innerElement = `<p class="f-md">${nickname}님</p>
-  <p class="f-l">중위소득 기준 범위는 <strong class="f-primary">${resultPercent}%</strong> 이에요</p>
+  <p class="f-l">기준 중위소득 <strong class="f-primary">${resultPercent}%</strong> 예요</p>
   <div class="row space-bet">
     <p>
       <span class="f-ssm" style="float: left;">계산 날짜: ${date}</span>
@@ -429,18 +460,20 @@ function updateWithResults(responseBody) {
   <p class="f-ms f-primary recommend"><strong>서비스 오픈 알림을  받아보실 수 있어️요</strong>  😁 </p>
   <div class="input-phone">
     <input class="number-box" id="result-phone-input" type="tel" placeholder="010 - 1234 - 1234">
-    <a href="#main2"><button id="result-phone" class="btn-circle-2 ms-3">등록</button></a>
+    <button id="result-phone" class="btn-circle-2 ms-3">등록</button>
   </div>`;
   resultTab.innerHTML = innerElement;
   for (var i = 0; i < bokjiLength; i++) {
     //   // 길이 만큼 반복문 돌면서 div생성하고
     //   // 반복문 안에 ${responseBody.bokjiInfo[i].title}, ${responseBody.bokjiInfo[i].description} 속 []에 i 값 넣기.
     let infoRight = document.getElementById("infoRight");
-    infoRight.innerHTML += `<div class="mb-2"><a href="${responseBody.bokjiInfo[i].bokjiLink}"><span class="tag-box tag-box-wide">${responseBody.bokjiInfo[i].bokjiName}</span></a> ${responseBody.bokjiInfo[i].bokjiBenefit}</div>`;
+    infoRight.innerHTML += `<div class="mb-2"><a href="${responseBody.bokjiInfo[i].bokjiLink}" target='_blank'><span class="tag-box tag-box-wide">${responseBody.bokjiInfo[i].bokjiName}</span></a> ${responseBody.bokjiInfo[i].bokjiBenefit}</div>`;
   }
   // 제이쿼리도 이안에 같이 넣어줘야지 작동한다.
   $("#result-phone").on("click", function () {
-    $("#agreement").fadeIn();
+    if (checkPhoneVacant()) {
+      $("#agreement").fadeIn();
+    }
   });
   const ctx = document.getElementById("myChart").getContext("2d");
   if (family == 1) {
@@ -957,7 +990,10 @@ function getCsrfToken() {
 // phone-submit 버튼 누르면 모달창 뜨는 UI
 
 $("#phone-submit").on("click", function () {
-  $("#agreement").fadeIn();
+  if(checkPhoneVacant()){
+    bottomPhone = true;
+    $("#agreement").fadeIn();
+  }
 });
 
 $(".exit").on("click", function () {
@@ -965,10 +1001,11 @@ $(".exit").on("click", function () {
 });
 
 // 체크된 값 boolean
-const is_agree = document.querySelector('input[name="agreement"]');
+
 
 async function agreement(event) {
-  if (is_agree.checked == true) {
+  const is_agree = document.querySelector('input[name="agreement"]');
+  if (is_agree.checked) {
     if (!(await getPhone())) {
       return;
     }
