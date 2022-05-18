@@ -64,6 +64,29 @@
           <li class="tab-item">STEP 3</li>
         </ul>
         <!-- <form action="/" method="post"> -->
+<<<<<<< HEAD
+          <!-- onsubmit="return checkInput(this)" -->
+          <!-- {% csrf_token %} -->
+          <div class="tab-content-group clearfix">
+            <div class="tab-content">
+              <p class="f-primary text-start input-name">닉네임</p>
+              <input name="nickname" id="nickname" type="text" placeholder="익명의 복지왕">
+              <p class="f-primary text-start input-name">나이</p>
+              <input name="age" id="age" type="text" value="">
+              <p class="f-primary text-start input-name">가구원수</p>
+              <select name="family-number" id="family-number" placeholder="adkfjdif">
+                <option value="1" selected>1인 가구</option>
+                <option value="2">2인 가구</option>
+                <option value="3">3인 가구</option>
+                <option value="4">4인 가구</option>
+                <option value="5">5인 가구</option>
+                <option value="6">6인 가구</option>
+                <option value="7">7인 가구</option>
+                <option value="8">8인 가구</option>
+              </select>
+              <p class="f-primary text-start input-name">수급자 유형</p>
+              <select name="bokji-type" id="bokji-type">
+=======
         <!-- onsubmit="return checkInput(this)" -->
         {% csrf_token %}
         <div class="tab-content-group clearfix">
@@ -161,6 +184,7 @@
             <div class="tab-box">
               <p class="f-primary text-start input-name">보유 중인 차량 종류는 무엇인가요?</p>
               <select name="car-type" id="car-type">
+>>>>>>> 000c8956e45a001761ae33931d671b191c0945fc
                 <option value=None selected>없음</option>
                 <option value="normal">일반 자동차</option>
                 <option value="forWork">생업용 자동차</option>

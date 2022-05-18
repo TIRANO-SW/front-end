@@ -5,5 +5,5 @@ from landing import views
 urlpatterns = [
     path("", views.index),
     path("cal-data/", views.calculate_median_income),
-    path("phone/", views.get_phone),
+    path("phone/", views.get_phone_number),
 ]
