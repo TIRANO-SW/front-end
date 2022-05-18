@@ -20,7 +20,16 @@ def calculate_median_income(request):
         family_number = request_body.get("family-number")
         work = request_body.get('work')
         # 가구별 중위소득 100% 금액
-        median_income_100 = [1944812, 3260085, 4194701, 5121080, 6024515, 6907004, 7780592, 8654180]
+        median_income_100 = [
+            1944812,
+            3260085,
+            4194701,
+            5121080,
+            6024515,
+            6907004,
+            7780592,
+            8654180,
+        ]
         # 도시별 기본공제액
         location_dict = {
             "big-city": {
@@ -37,9 +46,9 @@ def calculate_median_income(request):
             },
         }
         work_deduction = deduct_work_income(request_body)
-        
+
         property_deduction = deduct_property(request_body, location_dict)
-        
+
         car_deduction = deduct_car_property(request_body)
         
         median_income_value = work_deduction + property_deduction + car_deduction
@@ -58,15 +67,13 @@ def calculate_median_income(request):
             "bokjiInfo": bokji_data
         }
         return JsonResponse(data)
-        return JsonResponse({"test":"test"})
     return HttpResponseForbidden()
-
 
 
 # 근로소득 및 사업소득에 대한 공제 계산
 def deduct_work_income(request_body):
-    bokji_type = request_body.get('bokji-type')
-    work = request_body.get('work')
+    bokji_type = request_body.get("bokji-type")
+    work = request_body.get("work")
     medical = request_body.get("medical")
     default_deduction_rate = 0.7
     if work != None or 0:
@@ -76,31 +83,31 @@ def deduct_work_income(request_body):
         elif bokji_type == "participation-income":
             deduction_value = 200000  # 공제액
             deduction_rate = 0.5  # 공제액 공제 이후 추가 공제값
-        elif (bokji_type == "recipient" or "college"):
+        elif bokji_type == "recipient" or "college":
             deduction_value = 400000
             deduction_rate = 0.7
         elif bokji_type == "facility":
             deduction_value = 500000
             deduction_rate = 0.7
-        elif (bokji_type == "student" or "handicapped" or "75-elder" or "north"):
+        elif bokji_type == "student" or "handicapped" or "75-elder" or "north":
             deduction_value = 200000
             deduction_rate = 0.7
-        elif (bokji_type == "elder" or "pregnant" or "soldier" or "intern"):
+        elif bokji_type == "elder" or "pregnant" or "soldier" or "intern":
             deduction_value = 0
             deduction_rate = 0.7
 
         work_deduction = (work - deduction_value) * deduction_rate
         if bokji_type != "None":
             work_deduction = compare_default_deduct(work, work_deduction)
-        
+
         if medical != None:
             work_deduction -= medical
         # 음수면 0으로 처리
         if work_deduction < 0:
             work_deduction = 0
     else:
-        work_deduction =0
-    
+        work_deduction = 0
+
     return work_deduction
 
 
@@ -113,7 +120,7 @@ def compare_default_deduct(work, work_deduction):
         return work_deduction
     else:
         return default_deduction
-    
+
 
 # 주거용 재산 공제 계산
 def deduct_living_property(living, location_deduction, debt):
@@ -127,12 +134,14 @@ def deduct_living_property(living, location_deduction, debt):
 
     if living > living_property_limit:
         result_general = living - living_property_limit * general_conversion_rate
-        result_living = (living_property_limit - total_deduction_value) * living_conversion_rate
+        result_living = (
+            living_property_limit - total_deduction_value
+        ) * living_conversion_rate
         if result_living < 0:
             total_deduction_value -= living_property_limit
         else:
             total_deduction_value = 0
-            
+
         result = result_general + result_living
     else:
         result = (living - total_deduction_value) * living_conversion_rate
@@ -140,15 +149,16 @@ def deduct_living_property(living, location_deduction, debt):
             total_deduction_value -= living
         else:
             total_deduction_value = 0
-    
+
     if result < 0:
         result = 0
     return result, total_deduction_value
 
+
 # 전월세 보증금, 임차금 재산 공제
 def deduct_rent_property(rent, total_deduction_value):
     rent_correction_factor = 0.95
-    
+
     result = (rent * rent_correction_factor) - total_deduction_value
     return result, total_deduction_value
 
@@ -170,17 +180,18 @@ def deduct_finance_property(asset, total_deduction_value):
         result = 0
     return result
 
+
 # 전체 재산 공제
 def deduct_property(request_body, location_dict):
-    location = request_body.get('location')
+    location = request_body.get("location")
     asset = request_body.get("asset")
-    living = request_body.get('living')
-    rent = request_body.get('rent')
-    debt = request_body.get('debt')
-    land = request_body.get('land')
+    living = request_body.get("living")
+    rent = request_body.get("rent")
+    debt = request_body.get("debt")
+    land = request_body.get("land")
     location_deduction = location_dict[location]
     total_deduction_value = location_deduction["living_deduction"] + debt
-    total_deduction = 0 
+    total_deduction = 0
 
     if living != None or 0:
         living_deduction, total_deduction_value = deduct_living_property(living, location_deduction, debt)
@@ -194,8 +205,8 @@ def deduct_property(request_body, location_dict):
     if asset != None or 0:
         finance_deduction = deduct_finance_property(asset, total_deduction_value)
         total_deduction += finance_deduction
-        
-    if total_deduction < 0: 
+
+    if total_deduction < 0:
         total_deduction = 0
     return total_deduction
 
@@ -215,11 +226,16 @@ def deduct_car_property(request_body):
             result = car * forwork_deduction_rate * car_deduction_rate
         elif car_type == "disabled" or "veteran":
             result = 0
-        elif car_type == "under200-sedan" or "under200-van" or "under500-sedan" or "under500-van":
+        elif (
+            car_type == "under200-sedan"
+            or "under200-van"
+            or "under500-sedan"
+            or "under500-van"
+        ):
             result = car * car_deduction_rate
     else:
         result = 0
-    
+
     return result
 
 

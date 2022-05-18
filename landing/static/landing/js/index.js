@@ -334,22 +334,39 @@ function getResults() {
   });
 }
 
-function getPhone() {
-  fetch("/phone/", {
+async function getPhone() {
+  console.log("send phone");
+  let resultPhoneElement = document.getElementById("result-phone-input");
+  let phoneNumber = resultPhoneElement
+    ? resultPhoneElement.value
+    : phoneElement.value;
+  if (!phoneNumber) {
+    alert("번호를 입력해 주세요.");
+    return false;
+  } else if (false /* valPhone(phoneNumber) */) {
+    alert("똑바로 입력해라");
+    return false;
+  }
+  let response = await fetch("/phone/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
       "X-CSRFToken": getCsrfToken(),
     },
     body: JSON.stringify({
-      phone: phoneElement.value,
+      phone: phoneNumber,
+      // result_phone: resultPhoneElement.value, 결과 페이지 핸드폰은 어떻게 보내야하나요?
     }),
-  }).then((response) => {
-    if (response.status != 200) alert("일시적 오류");
-    else response.json();
   });
+  if (response.status != 200) {
+    alert("일시적 오류");
+    return false;
+  }
+  return true;
 }
 
+// 리팩토링 어떻게 하면 좋을까?
+// innerHTML부분을 함수로 빼내고 싶은데 그러면 차트 생성에 문제가 생긴다.
 let tempGlobalResponseBody = null;
 function updateWithResults(responseBody) {
   // console.log(responseBody);
@@ -361,12 +378,25 @@ function updateWithResults(responseBody) {
   let nickname = responseBody.nickname;
   let resultPercent = responseBody.medianIncome
     ? responseBody.medianIncome
-    : "100";
+    : "0";
   let date = moment().format("YYYY년 MM월 D일");
   let age = responseBody.age;
-  let family = 8;
-  let resultTo = responseBody.incomeResult;
+  let family = responseBody.familyNumber;
+  let resultTo = responseBody.incomeResult
+    .toLocaleString("ko-KR", {
+      style: "currency",
+      currency: "KRW",
+      minimumFractionDigits: 0,
+    })
+    .slice(1);
+  let resultTotal = responseBody.incomeResult;
   let bokji = responseBody.bokjiInfo[0].title;
+  let service = responseBody.bokjiInfo[0].description;
+
+  // bokjiInfo 배열 갯수 만큼 div 추가해준다.
+  let bokjiLength = responseBody.bokjiInfo.length;
+  // let nameBokji = document.createElement("div");
+  // nameBokji.classList.add('mb-2');
 
   let innerElement = `<p class="f-md">${nickname}님</p>
   <p class="f-l">중위소득 기준 범위는 <strong class="f-primary">${resultPercent}%</strong> 이에요</p>
@@ -381,21 +411,30 @@ function updateWithResults(responseBody) {
     </div>
     <div class="col-md-4 box-sha info-left clearfix">
       <p class="f-ms f-primary mb-3" style="text-align:center;"><strong>${nickname}</strong></p>
-      <div class="mb-2"><span class="tag-box">나이</span> <span>${age}세</span></div>
-      <div class="mb-2"><span class="tag-box">가구원</span>${family}인가구</div>
+      <div class="mb-2"><span class="tag-box">나이</span> <span>${age} 세</span></div>
+      <div class="mb-2"><span class="tag-box">가구원</span>${family}인 가구</div>
       <div class="mb-2"><span class="tag-box">소득 인정액</span>${resultTo}원</div>
     </div>
-    <div class="col-md-8 box-sha info-right">
+    <div id="infoRight" class="col-md-8 box-sha info-right">
       <p class="f-ms f-primary mb-3"><strong>${nickname}님께 추천드리는 복지혜택</strong></p>
-      <div class="mb-2"><span class="tag-box tag-box-wide">${bokji}</span> 혜택) 활동 참여수당 최대 19.5만원</div>
-      <div class="mb-2"><span class="tag-box tag-box-wide">${bokji}</span> 혜택) 방문,화상,전화 상담</div>
     </div>
   </div>
+  <p class="f-ms f-primary recommend"><strong>서비스 오픈 알림을  받아보실 수 있어️요</strong>  😁 </p>
   <div class="input-phone">
-    <input class="number-box" type="tel" placeholder="휴대폰 번호를 입력해주세요">
-    <button class="btn-circle-2 ms-3" type="submit">등록</button>
+    <input class="number-box" id="result-phone-input" type="tel" placeholder="010 - 1234 - 1234">
+    <a href="#main2"><button id="result-phone" class="btn-circle-2 ms-3">등록</button></a>
   </div>`;
   resultTab.innerHTML = innerElement;
+  for (var i = 0; i < bokjiLength; i++) {
+    //   // 길이 만큼 반복문 돌면서 div생성하고
+    //   // 반복문 안에 ${responseBody.bokjiInfo[i].title}, ${responseBody.bokjiInfo[i].description} 속 []에 i 값 넣기.
+    let infoRight = document.getElementById("infoRight");
+    infoRight.innerHTML += `<div class="mb-2"><span class="tag-box tag-box-wide">${responseBody.bokjiInfo[i].title}</span> ${responseBody.bokjiInfo[i].description}</div>`;
+  }
+  // 제이쿼리도 이안에 같이 넣어줘야지 작동한다.
+  $("#result-phone").on("click", function () {
+    $("#agreement").fadeIn();
+  });
   const ctx = document.getElementById("myChart").getContext("2d");
   if (family == 1) {
     const myChart = new Chart(ctx, {
@@ -409,9 +448,31 @@ function updateWithResults(responseBody) {
               972406, 1166887, 1361368, 1555850, 1944812, 2333774, 2917218,
               3889624, 5834436,
             ],
-            backgroundColor: ["rgba(54, 162, 235, 0.2)"],
-            borderColor: ["#DEE2EA"],
-            borderWidth: [2],
+            backgroundColor: [
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+            ],
+            borderColor: [
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+            ],
+            borderWidth: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
             pointRadius: [10],
           },
         ],
@@ -434,7 +495,7 @@ function updateWithResults(responseBody) {
         },
       },
     });
-    addData(myChart, resultPercent, resultTo);
+    addData(myChart, resultPercent, resultTotal);
   } else if (family == 2) {
     const myChart = new Chart(ctx, {
       type: "line",
@@ -447,9 +508,31 @@ function updateWithResults(responseBody) {
               1630043, 1956051, 2282060, 2608068, 3260085, 3912102, 4890128,
               6520170, 9780255,
             ],
-            backgroundColor: ["rgba(54, 162, 235, 0.2)"],
-            borderColor: ["#DEE2EA"],
-            borderWidth: [2],
+            backgroundColor: [
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+            ],
+            borderColor: [
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+            ],
+            borderWidth: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
             pointRadius: [10],
           },
         ],
@@ -472,7 +555,7 @@ function updateWithResults(responseBody) {
         },
       },
     });
-    addData(myChart, resultPercent, resultTo);
+    addData(myChart, resultPercent, resultTotal);
   } else if (family == 3) {
     const myChart = new Chart(ctx, {
       type: "line",
@@ -485,9 +568,31 @@ function updateWithResults(responseBody) {
               2097351, 2516821, 2936291, 3355761, 4194701, 5033641, 6292052,
               8389402, 12584103,
             ],
-            backgroundColor: ["rgba(54, 162, 235, 0.2)"],
-            borderColor: ["#DEE2EA"],
-            borderWidth: [2],
+            backgroundColor: [
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+            ],
+            borderColor: [
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+            ],
+            borderWidth: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
             pointRadius: [10],
           },
         ],
@@ -510,7 +615,7 @@ function updateWithResults(responseBody) {
         },
       },
     });
-    addData(myChart, resultPercent, resultTo);
+    addData(myChart, resultPercent, resultTotal);
   } else if (family == 4) {
     const myChart = new Chart(ctx, {
       type: "line",
@@ -523,9 +628,31 @@ function updateWithResults(responseBody) {
               2560540, 3072648, 3584756, 4096864, 5121080, 6145296, 7681620,
               10242160, 15363240,
             ],
-            backgroundColor: ["rgba(54, 162, 235, 0.2)"],
-            borderColor: ["#DEE2EA"],
-            borderWidth: [2],
+            backgroundColor: [
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+            ],
+            borderColor: [
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+            ],
+            borderWidth: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
             pointRadius: [10],
           },
         ],
@@ -548,7 +675,7 @@ function updateWithResults(responseBody) {
         },
       },
     });
-    addData(myChart, resultPercent, resultTo);
+    addData(myChart, resultPercent, resultTotal);
   } else if (family == 5) {
     const myChart = new Chart(ctx, {
       type: "line",
@@ -561,9 +688,31 @@ function updateWithResults(responseBody) {
               3012258, 3614709, 4217161, 4819612, 6024515, 7229418, 9036773,
               12049030, 18073545,
             ],
-            backgroundColor: ["rgba(54, 162, 235, 0.2)"],
-            borderColor: ["#DEE2EA"],
-            borderWidth: [2],
+            backgroundColor: [
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+            ],
+            borderColor: [
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+            ],
+            borderWidth: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
             pointRadius: [10],
           },
         ],
@@ -586,7 +735,7 @@ function updateWithResults(responseBody) {
         },
       },
     });
-    addData(myChart, resultPercent, resultTo);
+    addData(myChart, resultPercent, resultTotal);
   } else if (family == 6) {
     const myChart = new Chart(ctx, {
       type: "line",
@@ -599,9 +748,31 @@ function updateWithResults(responseBody) {
               3453502, 4144202, 4834903, 5525603, 6907004, 8288405, 10360506,
               13814008, 20721012,
             ],
-            backgroundColor: ["rgba(54, 162, 235, 0.2)"],
-            borderColor: ["#DEE2EA"],
-            borderWidth: [2],
+            backgroundColor: [
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+            ],
+            borderColor: [
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+            ],
+            borderWidth: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
             pointRadius: [10],
           },
         ],
@@ -624,7 +795,7 @@ function updateWithResults(responseBody) {
         },
       },
     });
-    addData(myChart, resultPercent, resultTo);
+    addData(myChart, resultPercent, resultTotal);
   } else if (family == 7) {
     const myChart = new Chart(ctx, {
       type: "line",
@@ -637,9 +808,31 @@ function updateWithResults(responseBody) {
               3890296, 4668355, 5446414, 6224474, 7780592, 9336710, 11670888,
               15561184, 23341776,
             ],
-            backgroundColor: ["rgba(54, 162, 235, 0.2)"],
-            borderColor: ["#DEE2EA"],
-            borderWidth: [2],
+            backgroundColor: [
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+            ],
+            borderColor: [
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+            ],
+            borderWidth: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
             pointRadius: [10],
           },
         ],
@@ -662,7 +855,7 @@ function updateWithResults(responseBody) {
         },
       },
     });
-    addData(myChart, resultPercent, resultTo);
+    addData(myChart, resultPercent, resultTotal);
   } else if (family == 8) {
     const myChart = new Chart(ctx, {
       type: "line",
@@ -675,9 +868,31 @@ function updateWithResults(responseBody) {
               4327090, 5192508, 6057926, 6923344, 8654180, 10385016, 12981270,
               17308360, 25962540,
             ],
-            backgroundColor: ["rgba(54, 162, 235, 0.2)"],
-            borderColor: ["#DEE2EA"],
-            borderWidth: [2],
+            backgroundColor: [
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+            ],
+            borderColor: [
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+              "rgba(167, 170, 174, 0.2)",
+            ],
+            borderWidth: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
             pointRadius: [10],
           },
         ],
@@ -700,7 +915,7 @@ function updateWithResults(responseBody) {
         },
       },
     });
-    addData(myChart, resultPercent, resultTo);
+    addData(myChart, resultPercent, resultTotal);
   }
 }
 
@@ -716,6 +931,12 @@ function addData(chart, label, data) {
   chart.data.labels.sort(function (a, b) {
     return a - b;
   });
+  // indexOf로 데이터의 index 찾기.
+
+  let dataIndex = chart.data.datasets[0].data.indexOf(data);
+  chart.data.datasets[0].backgroundColor[dataIndex] = "rgba(79, 152, 255, 0.3)";
+  chart.data.datasets[0].borderColor[dataIndex] = "rgba(79, 152, 255, 1)";
+  chart.data.datasets[0].borderWidth[dataIndex] = 2;
   chart.update();
 }
 
@@ -739,9 +960,13 @@ $(".exit").on("click", function () {
 // 체크된 값 boolean
 const is_agree = document.querySelector('input[name="agreement"]');
 
-function agreement(event) {
+async function agreement(event) {
   if (is_agree.checked == true) {
+    if (!(await getPhone())) {
+      return;
+    }
     alert("신청해주셔서 감사합니다.");
+    location.href = "/";
   } else {
     alert("개인정보 제공 동의서에 동의해주세요.");
     event.preventDefault();
