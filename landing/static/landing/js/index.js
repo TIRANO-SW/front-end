@@ -293,7 +293,7 @@ function checkVacant() {
   return allFilled;
 }
 
-function getResults() {
+function getResults(flag) {
   // 함수는 리턴값을 가질 수도 있고 없을 수 도 있다.
   // 어떤 실행의 결과값을 얻고 싶다면 리턴을 사용한다.
   // 일련의 과정들을 실행하기만 하고 싶으면 리턴을 사용하지 않는다.
@@ -324,6 +324,7 @@ function getResults() {
       car: parseInt(carElement.value.replaceAll(",", "")),
       "car-type": carTypeElement.value,
       debt: parseInt(debtElement.value.replaceAll(",", "")),
+      flag: parseInt(flag),
     }),
   }).then((response) => {
     if (response.status != 200) alert("일시적 오류");
@@ -337,7 +338,7 @@ function getResults() {
 // 전화번호 입력 형식 기능 구현
 // function checkPhone() {
 //   var patternPhone = /01[016789]-[^0][0-9]{2,3}-[0-9]{3,4}/;
-  
+
 // }
 
 async function getPhone() {
@@ -435,7 +436,7 @@ function updateWithResults(responseBody) {
     //   // 길이 만큼 반복문 돌면서 div생성하고
     //   // 반복문 안에 ${responseBody.bokjiInfo[i].title}, ${responseBody.bokjiInfo[i].description} 속 []에 i 값 넣기.
     let infoRight = document.getElementById("infoRight");
-    infoRight.innerHTML += `<div class="mb-2"><a href="${responseBody.bokjiInfo[i].bokjiLink}"><span class="tag-box tag-box-wide">${responseBody.bokjiInfo[i].bokjiName}</span></a> ${responseBody.bokjiInfo[i].bokjiBenetfit}</div>`;
+    infoRight.innerHTML += `<div class="mb-2"><a href="${responseBody.bokjiInfo[i].bokjiLink}"><span class="tag-box tag-box-wide">${responseBody.bokjiInfo[i].bokjiName}</span></a> ${responseBody.bokjiInfo[i].bokjiBenefit}</div>`;
   }
   // 제이쿼리도 이안에 같이 넣어줘야지 작동한다.
   $("#result-phone").on("click", function () {

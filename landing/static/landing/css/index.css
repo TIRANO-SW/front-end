@@ -410,7 +410,7 @@ p > span {
   font-size: var(--f-sm);
 }
 .tag-box {
-  width: 83px;
+  width: 95px;
   height: 20px;
   border-radius: 20px;
   color: var(--Primary);
@@ -421,7 +421,7 @@ p > span {
   float: left;
 }
 .tag-box-wide {
-  width: 120px;
+  width: 135px;
 }
 .input-phone {
   text-align: center;

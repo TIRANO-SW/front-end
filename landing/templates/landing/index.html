@@ -48,7 +48,8 @@
               <p class="f-lg"><strong>나를 위한 맞춤 복지서비스</strong></p>
               <p class="f-l">페어링에서 더 쉽고 간편하게</p>
             </div>
-            <a href="#calculation"><img class="" src="static/landing/img/mark.png" alt="mark" width="62px" height="62px"></a>
+            <a href="#calculation"><img class="" src="static/landing/img/mark.png" alt="mark" width="62px"
+                height="62px"></a>
           </div>
         </div>
 
@@ -64,31 +65,8 @@
           <li class="tab-item">STEP 3</li>
         </ul>
         <!-- <form action="/" method="post"> -->
-<<<<<<< HEAD
-          <!-- onsubmit="return checkInput(this)" -->
-          <!-- {% csrf_token %} -->
-          <div class="tab-content-group clearfix">
-            <div class="tab-content">
-              <p class="f-primary text-start input-name">닉네임</p>
-              <input name="nickname" id="nickname" type="text" placeholder="익명의 복지왕">
-              <p class="f-primary text-start input-name">나이</p>
-              <input name="age" id="age" type="text" value="">
-              <p class="f-primary text-start input-name">가구원수</p>
-              <select name="family-number" id="family-number" placeholder="adkfjdif">
-                <option value="1" selected>1인 가구</option>
-                <option value="2">2인 가구</option>
-                <option value="3">3인 가구</option>
-                <option value="4">4인 가구</option>
-                <option value="5">5인 가구</option>
-                <option value="6">6인 가구</option>
-                <option value="7">7인 가구</option>
-                <option value="8">8인 가구</option>
-              </select>
-              <p class="f-primary text-start input-name">수급자 유형</p>
-              <select name="bokji-type" id="bokji-type">
-=======
         <!-- onsubmit="return checkInput(this)" -->
-        {% csrf_token %}
+        <!-- {% csrf_token %} -->
         <div class="tab-content-group clearfix">
           <div class="tab-content">
             <h1>나의 <strong>중위소득 분위</strong> 계산 시작하기 😉</h1>
@@ -184,7 +162,6 @@
             <div class="tab-box">
               <p class="f-primary text-start input-name">보유 중인 차량 종류는 무엇인가요?</p>
               <select name="car-type" id="car-type">
->>>>>>> 000c8956e45a001761ae33931d671b191c0945fc
                 <option value=None selected>없음</option>
                 <option value="normal">일반 자동차</option>
                 <option value="forWork">생업용 자동차</option>
@@ -236,7 +213,7 @@
             </div>
 
             <div id="calculator-submit">
-              <button class="bt" onclick="getResults()">
+              <button class="bt" onclick="getResults(0)">
                 <p>결과 보기</p>
               </button>
             </div>
@@ -401,14 +378,14 @@
       </p>
     </div>
     <!-- <form action="/" method="post"> -->
-      <!-- {% csrf_token %} -->
-      <div class="check-box">
-        <input type="radio" name="agreement" id="agree"><label for="agree">동의합니다.</label>
-        <input type="radio" name="agreement" id="disagree"><label for="disagree">동의하지 않습니다.</label>
-        <button class="bt" type="submit" id="agree-submit">
-          <p>제출하기</p>
-        </button>
-      </div>
+    <!-- {% csrf_token %} -->
+    <div class="check-box">
+      <input type="radio" name="agreement" id="agree"><label for="agree">동의합니다.</label>
+      <input type="radio" name="agreement" id="disagree"><label for="disagree">동의하지 않습니다.</label>
+      <button class="bt" id="agree-submit" onclick="getResults(1)">
+        <p>제출하기</p>
+      </button>
+    </div>
     <!-- </form> -->
   </div>
 

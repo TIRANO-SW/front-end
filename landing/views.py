@@ -18,7 +18,8 @@ def calculate_median_income(request):
         nickname = request_body.get("nickname")
         age = request_body.get("age")
         family_number = request_body.get("family-number")
-        work = request_body.get('work')
+        work = request_body.get("work")
+        flag = request_body.get("flag")
         # 가구별 중위소득 100% 금액
         median_income_100 = [
             1944812,
@@ -50,21 +51,24 @@ def calculate_median_income(request):
         property_deduction = deduct_property(request_body, location_dict)
 
         car_deduction = deduct_car_property(request_body)
-        
+
         median_income_value = work_deduction + property_deduction + car_deduction
-        median_income = int((median_income_value/median_income_100[family_number-1])*100)
-        
+        median_income = int(
+            (median_income_value / median_income_100[family_number - 1]) * 100
+        )
+
         property = property_deduction + car_deduction
         bokji_data = get_bokji_data(median_income, age, work, property, family_number)
-        save_data(request_body, median_income, median_income_value)
-        
+        if flag == 1:
+            save_data(request_body, median_income, median_income_value)
+
         data = {
             "nickname": nickname,
             "age": age,
             "familyNumber": family_number,
             "medianIncome": median_income,
             "incomeResult": median_income_value,
-            "bokjiInfo": bokji_data
+            "bokjiInfo": bokji_data,
         }
         return JsonResponse(data)
     return HttpResponseForbidden()
@@ -194,13 +198,19 @@ def deduct_property(request_body, location_dict):
     total_deduction = 0
 
     if living != None or 0:
-        living_deduction, total_deduction_value = deduct_living_property(living, location_deduction, debt)
+        living_deduction, total_deduction_value = deduct_living_property(
+            living, location_deduction, debt
+        )
         total_deduction += living_deduction
     if rent != None or 0:
-        rent_deduction, total_deduction_value = deduct_rent_property(rent, total_deduction_value)
+        rent_deduction, total_deduction_value = deduct_rent_property(
+            rent, total_deduction_value
+        )
         total_deduction += rent_deduction
     if land != None or 0:
-        general_deduction, total_deduction_value = deduct_general_property(land, total_deduction_value)
+        general_deduction, total_deduction_value = deduct_general_property(
+            land, total_deduction_value
+        )
         total_deduction += general_deduction
     if asset != None or 0:
         finance_deduction = deduct_finance_property(asset, total_deduction_value)
@@ -247,11 +257,8 @@ def get_phone_number(request):
         user_phone = UserPhone()
         user_phone.phone_number = phone_number
         user_phone.save()
-        
-        return JsonResponse(
-            {
-                "result": "success!"
-            })
+
+        return JsonResponse({"result": "success!"})
     return HttpResponseForbidden()
 
 
@@ -269,31 +276,34 @@ def save_data(request_body, median_income, median_income_value):
         "elder": "65세 이상 74세 이하 노인",
         "pregnant": "임신 중에 있거나 분만 후 6개월 미만의 여성",
         "soldier": "사회복무요원, 상근예비역",
-        "intern": "행정기관 및 공공기관의 행정인턴(행정인턴 참여소득)"
+        "intern": "행정기관 및 공공기관의 행정인턴(행정인턴 참여소득)",
     }
-    bokji_type = request_body.get('bokji-type')
-    
+    bokji_type = request_body.get("bokji-type")
+
     user = UserDetail()
     user.user_type = bokji_type_dict[bokji_type]
-    user.age = request_body.get('age')
-    user.family_number = request_body.get('family-number')
+    user.age = request_body.get("age")
+    user.family_number = request_body.get("family-number")
     user.median_income = median_income
-    user.median_income_value = median_income_value 
+    user.median_income_value = median_income_value
     user.save()
-    
+
     return 0
 
-def get_bokji_data(median_income, age, work, property, family_number):
-    bokji_data_list =[]
 
-    recommend_bokji_list = recommend_bokji(median_income, age, work, property, family_number)
+def get_bokji_data(median_income, age, work, property, family_number):
+    bokji_data_list = []
+
+    recommend_bokji_list = recommend_bokji(
+        median_income, age, work, property, family_number
+    )
     for bokji in recommend_bokji_list:
         print(bokji)
-        welfare = Welfare.objects.get(welfare_name =bokji)
+        welfare = Welfare.objects.get(welfare_name=bokji)
         bokji_data = {
             "bokjiName": welfare.welfare_name,
             "bokjiBenefit": welfare.welfare_benefit,
-            "bokjiLink": welfare.welfare_link
+            "bokjiLink": welfare.welfare_link,
         }
         print(bokji_data)
         bokji_data_list.append(bokji_data)
@@ -302,32 +312,33 @@ def get_bokji_data(median_income, age, work, property, family_number):
 
 
 def recommend_bokji(median_income, age, work, property, family_number):
-    recommend_bokji_list =[]
+    recommend_bokji_list = []
     if age < 45:
         if work < 3000000:
             recommend_bokji_list.append("국민내일배움카드")
         if (500000 < work <= 2000000) and (median_income < 100) and (19 < age <= 35):
-            recommend_bokji_list.append("청년내일저축계좌")
+            recommend_bokji_list.append("청년내일저축계좌II")
         if (median_income < 50) and (15 < age < 40):
-            recommend_bokji_list.append("청년내일저축계좌(차상위)")
-    if ((15 < age < 70) and (median_income < 60) and (property <= 400000000)) or ((18 <= age < 35) and (median_income < 120)):
-        recommend_bokji_list.append("국민취업지원제도 I유형")
+            recommend_bokji_list.append("청년내일저축계좌I")
+    if ((15 < age < 70) and (median_income < 60) and (property <= 400000000)) or (
+        (18 <= age < 35) and (median_income < 120)
+    ):
+        recommend_bokji_list.append("국민취업지원제도I")
     elif ((34 < age < 70) and (median_income < 100)) or (18 <= age < 35):
-        recommend_bokji_list.append("국민취업지원제도 II유형")
+        recommend_bokji_list.append("국민취업지원제도II")
     if family_number == 1:
         recommend_bokji_list.append("1인가구 지원사업")
     if 19 < age < 41:
-        recommend_bokji_list.append("서울시 청년 마음건강사업")
+        recommend_bokji_list.append("청년 마음건강사업")
 
     if len(recommend_bokji_list) < 5:
         recommend_bokji_list.append("무료 법률상담")
     elif len(recommend_bokji_list) > 5:
-        print(f'복지리스트{recommend_bokji_list}\n')
-        num = len(recommend_bokji_list) -5
+        print(f"복지리스트{recommend_bokji_list}\n")
+        num = len(recommend_bokji_list) - 5
         for i in range(num):
             recommend_bokji_list.pop()
-        
-        
+
     return recommend_bokji_list
 
 
@@ -338,55 +349,55 @@ def save_bokji_data():
             "welfare_benefit": "방문, 화상, 전화 법률 상담",
             "welfare_condition": "대한민국 국민",
             "welfare_link": "https://www.klac.or.kr/#",
-            "welfare_type": "default"
+            "welfare_type": "default",
         },
         {
             "welfare_name": "1인가구 지원사업",
             "welfare_benefit": "안전하고 건강한 사회적관계망 형성 지원",
             "welfare_condition": "1인가구",
             "welfare_link": "https://whatsnew.moef.go.kr/mec/ots/dif/view.do?comBaseCd=DIFPERCD&difPer1=DIFPER001&difSer=bcb920e1-068e-4671-8683-81a5be3ac58a&temp=2022&temp2=HALF001",
-            "welfare_type": "default"
+            "welfare_type": "default",
         },
         {
             "welfare_name": "서울시 청년 마음건강사업",
             "welfare_benefit": "자가검진도입 전문심리상담 서비스",
             "welfare_condition": "서울시에 거주, 만19세~39세 청년",
             "welfare_link": "https://www.hrd.go.kr/hrdp/gi/pgibo/PGIBO0100T.do",
-            "welfare_type": "default"
+            "welfare_type": "default",
         },
     ]
-    
+
     welfare_list = [
         {
             "welfare_name": "국민내일배움카드",
             "welfare_benefit": "300만원, 최대 500만원 훈련비 지원",
             "welfare_condition": "연매출 1억 5천만원 미만, 월 급여 300만원 미만",
-            "welfare_link": "https://www.hrd.go.kr/hrdp/gi/pgibo/PGIBO0100T.do"
+            "welfare_link": "https://www.hrd.go.kr/hrdp/gi/pgibo/PGIBO0100T.do",
         },
         {
             "welfare_name": "청년내일저축계좌",
             "welfare_benefit": "3년간 최대 1,080만 원 지원금 추가 납입",
             "welfare_condition": "만 15세 이상 ~ 만 39세 이하, 기준 중위소득 50% 이하, 가구재산 대도시 3.5억원 / 중소도시 2억원 / 농어촌 1.7억원 이하",
-            "welfare_link": "https://www.gwanak.go.kr/site/gwanak/06/10609060900002022032905.jsp"
+            "welfare_link": "https://www.gwanak.go.kr/site/gwanak/06/10609060900002022032905.jsp",
         },
         {
             "welfare_name": "청년내일저축계좌",
             "welfare_benefit": "3년간 최대 360만 원 지원금 추가 납입",
             "welfare_condition": "만 19세 이상 ~ 만 34세 이하, 기준 중위소득 100% 이하, 근로기준 월 50만원 초과 ~ 월 200만원 이하, 가구재산 대도시 3.5억원 / 중소도시 2억원 / 농어촌 1.7억원 이하",
-            "welfare_link": "https://www.gwanak.go.kr/site/gwanak/06/10609060900002022032905.jsp"
+            "welfare_link": "https://www.gwanak.go.kr/site/gwanak/06/10609060900002022032905.jsp",
         },
         {
             "welfare_name": "국민취업지원제도 I유형",
             "welfare_benefit": "구직촉진수당 최대 300만원 지급",
             "welfare_condition": "15~69세 가구단위 중위소득 60% 이하, 재산 4억원 이하 혹은 18~34세의 청년은 가구단위 중위소득 120% 이하",
-            "welfare_link": "https://www.kua.go.kr/uapba010/selectSimulAsmtIntro.do"
+            "welfare_link": "https://www.kua.go.kr/uapba010/selectSimulAsmtIntro.do",
         },
         {
             "welfare_name": "국민취업지원제도 II유형",
             "welfare_benefit": "취업활동 지원금 최대 25만원 지급",
             "welfare_condition": "18세~34세 구직자 혹은 35~69세 구직자 중 중위소득 100% 이하",
-            "welfare_link": "https://www.kua.go.kr/uapba010/selectSimulAsmtIntro.do"
-        },                               
+            "welfare_link": "https://www.kua.go.kr/uapba010/selectSimulAsmtIntro.do",
+        },
     ]
     for welfare_dict in welfare_list:
         welfare = Welfare()
@@ -395,7 +406,7 @@ def save_bokji_data():
         welfare.welfare_condition = welfare_dict["welfare_condition"]
         welfare.welfare_link = welfare_dict["welfare_link"]
         welfare.save()
-    
+
     for welfare_default_dict in welfare_default_list:
         welfare = Welfare()
         welfare.welfare_name = welfare_default_dict["welfare_name"]
@@ -404,5 +415,5 @@ def save_bokji_data():
         welfare.welfare_link = welfare_default_dict["welfare_link"]
         welfare.welfare_type = welfare_default_dict["welfare_type"]
         welfare.save()
-    
+
     return 0
