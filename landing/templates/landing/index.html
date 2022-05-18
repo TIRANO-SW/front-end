@@ -33,10 +33,10 @@
       <a class="logo" href="#home"><img src="static/landing/img/logo.png" alt="logo" width="138px" height="36px"></a>
       <nav>
         <ul class="nav-items">
-          <li><a href="#home">서비스</a></li>
           <li><a href="#calculation">중위소득계산기</a></li>
+          <li><a href="#aside">서비스</a></li>
           <li><a href="#reservation">사전예약</a></li>
-          <li><a href="#community">커뮤니티</a></li>
+          <li><a id="community" href="#" >커뮤니티</a></li>
         </ul>
       </nav>
     </header>
@@ -70,9 +70,9 @@
         <div class="tab-content-group clearfix">
           <div class="tab-content">
             <h1>나의 <strong>중위소득 분위</strong> 계산 시작하기 😉</h1>
-            <p class="f-primary text-start input-name">닉네임</p>
+            <p class="f-primary text-start input-name">닉네임 <small> (필수)</small></p>
             <input name="nickname" id="nickname" type="text" placeholder="익명의 복지왕">
-            <p class="f-primary text-start input-name">나이</p>
+            <p class="f-primary text-start input-name">나이 <small> (필수)</small></p>
             <input name="age" id="age" type="text" value="">
             <p class="f-primary text-start input-name">가구원수</p>
             <select name="family-number" id="family-number" placeholder="adkfjdif">
@@ -117,7 +117,7 @@
               <p class="f-primary text-start input-name">최근 3개월 이상 지속적으로 받고 있는 수입(지난 달 기준)은 얼마인가요?</p>
               <img class="question-icon" src="/static/landing/img/question-circle.svg" alt="물음표" width="15px"
                 height="15px">
-              <input name="work" id="work" type="text" placeholder="근로, 사업 소득">
+              <input name="work" id="work" type="text" placeholder="근로 및 사업 소득 (숫자만 입력)">
               <span class="won">₩</span>
               <div class="question-box">
                 <p>근로 소득, 사업소득, 프리랜서 소득, 임대 소득, 금융 자산 이자 소득, 연금 소득을 모두 포함해 주시면 더 정확해요.</p>
@@ -127,7 +127,7 @@
               <p class="f-primary text-start input-name">현재 보유 중인 금융 자산은 얼마인가요?</p>
               <img class="question-icon" src="/static/landing/img/question-circle.svg" alt="물음표" width="15px"
                 height="15px">
-              <input name="asset" id="asset" type="text" placeholder="금융 자산 입력">
+              <input name="asset" id="asset" type="text" placeholder="금융 자산 (숫자만 입력)">
               <span class="won">₩</span>
               <div class="question-box">
                 <p>현금, 수표, 어음, 주식, 국공채 등 유가증권, 예금, 적금, 부금, 보험, 수익증권등을 포함(부채를 제외한)한 금액을 입력해 주세요.</p>
@@ -137,7 +137,7 @@
               <p class="f-primary text-start input-name">보유 중인 주거용 재산 가액은 얼마인가요?</p>
               <img class="question-icon" src="/static/landing/img/question-circle.svg" alt="물음표" width="15px"
                 height="15px">
-              <input name="living" id="living" type="text" placeholder='주거 재산 입력'>
+              <input name="living" id="living" type="text" placeholder='주거 재산 (숫자만 입력)'>
               <span class="won">₩</span>
               <div class="question-box">
                 <p>(세대주 기준) 보유 중인 주택 재산액을 모두 포함해 주세요.</p>
@@ -145,12 +145,12 @@
             </div>
             <div class="tab-box">
               <p class="f-primary text-start input-name">전세 자금 및 임차 보증금은 얼마인가요?</p>
-              <input name="rent" id="rent" type="text" placeholder="보증금 입력">
+              <input name="rent" id="rent" type="text" placeholder="보증금 (숫자만 입력)">
               <span class="won">₩</span>
             </div>
             <div class="tab-box">
               <p class="f-primary text-start input-name">보유 중인 토지의 시가 표준액은 얼마인가요?</p>
-              <input name="land" id="land" type="text" placeholder="토지 입력">
+              <input name="land" id="land" type="text" placeholder="토지 (숫자만 입력)">
               <span class="won">₩</span>
             </div>
             <button class="bt" type="button" id="calculator-second">
@@ -181,9 +181,9 @@
             </div>
             <div class="tab-box">
               <p class="f-primary text-start input-name">보유 중인 차량 가액은 얼마인가요?</p>
-              <img class="question-icon" src="/static/landing/img/question-circle.svg" alt="물음표" width="15px"
-                height="15px">
-              <input name="car" id="car" type="text" placeholder="차량 가액 입력">
+              <a href="https://www.kidi.or.kr/user/car/carprice.do" target="_blank"><img class="question-icon"
+                  src="/static/landing/img/question-circle.svg" alt="물음표" width="15px" height="15px"></a>
+              <input name="car" id="car" type="text" placeholder="차량 가액 (숫자만 입력)">
               <span class="won">₩</span>
               <div class="question-box wide">
                 <p>- 내 차량 가액 조회하기 https://www.kidi.or.kr/user/car/carprice.do<br>
@@ -200,7 +200,7 @@
               <p class="f-primary text-start input-name">최근 3개월 이상 지속적으로 지출하는 의료 비용 월 평균은 얼마인가요?</p>
               <img class="question-icon" src="/static/landing/img/question-circle.svg" alt="물음표" width="15px"
                 height="15px">
-              <input name="medical" id="medical" type="text" placeholder="의료 비용 입력">
+              <input name="medical" id="medical" type="text" placeholder="의료 비용 (숫자만 입력)">
               <span class="won">₩</span>
               <div class="question-box">
                 <p>의료비 지출액 : 지속적으로 지출하는 의료 비용은 만성 질환 및 질병을 뜻합니다.</p>
@@ -208,7 +208,7 @@
             </div>
             <div class="tab-box">
               <p class="f-primary text-start input-name">보유 중인 부채는 얼마인가요?</p>
-              <input name="debt" id="debt" type="text" placeholder="부채 입력">
+              <input name="debt" id="debt" type="text" placeholder="부채 (숫자만 입력)">
               <span class="won">₩</span>
             </div>
 
@@ -252,14 +252,15 @@
           <button class="btn-circle-2 ms-3">등록</button>
         </div> -->
       </div>
-      <p class="f-basic" style="text-align: center; margin-top:24px;">입력하신 수입, 자산, 부채, 비용 정보는 사용자 브라우저 쿠키에만 저장되며, 페어링에는
+      <p class="f-basic-4" style="text-align: center; margin-top:24px;">입력하신 수입, 자산, 부채, 비용 정보는 사용자 브라우저 쿠키에만 저장되며,
+        페어링에는
         데이터가 남지 않습니다.
       </p>
     </div>
   </div>
   <article>
     <p class="f-l f-primary"><strong>나의 기준 중위소득을 알고 있으면</strong></p>
-    <p class="f-lg">받을 수 있는 복지 서비스를 확인할 수 있어요</p>
+    <p class="f-lg">이용할 수 있는 복지서비스를 보다 쉽게 확인할 수 있어요</p>
     <!-- <div class="article-text-group">
       <div class="article-left-text">
         <p class="f-md f-secondary"><strong>중위소득 확인</strong></p>
@@ -282,11 +283,11 @@
 
   </div>
 
-  <aside>
+  <aside id="aside">
     <p class="f-l f-primary"><strong>나를 위한 복지, 추천부터 신청까지 </strong></p>
     <p class="f-lg">페어링에선 가능해요</p>
     <p class="f-md mt-4 f-basic">이 세상 모든 복지를 페어링에서 한 눈에 확인해 보세요.<br>
-      그동안 찾아 헤맸던 복지서비스가 이젠 나에게 찾아오는 마법 같은 일상이 펼쳐질 거예요. </p>
+      그동안 찾아 헤맸던 복지서비스가 나에게 찾아오는 마법 같은 일상이 펼쳐질 거예요. </p>
   </aside>
 
   <div id="main3">
@@ -306,15 +307,18 @@
         <img src="static/landing/img/card_img_2.png" alt="job-list" width="96px" height="40px">
         <p class="f-l f-primary"><strong>복지 신청 서비스</strong></p>
         <p class="f-md f-basic">더이상 복지를 <br>
-          찾아 헤매지 않아도 돼요.<br>
-          나에게 딱맞는 <br>
-          복지 서비스를 확인하고,
+          찾아 헤매지 않아도 돼요.</p>
+        <p class="f-md f-basic mt-3">나에게 딱맞는 <br>
+          복지 서비스를 확인하고,<br>
           신청까지 할 수 있어요.</p>
       </div>
       <div class="card-item">
         <img src="static/landing/img/card_img_3.png" alt="message" width="96px" height="40px">
         <p class="f-l f-primary"><strong>복지 커뮤니티 공간</strong></p>
-        <p class="f-md f-basic">복지서비스 이용후기를 함께 공유하고, 복지에 대한 이야기도 자유롭게 나눠요.</p>
+        <p class="f-md f-basic">복지서비스 이용후기를<br>
+          함께 공유하고,<br>
+          복지에 대한 이야기도<br>
+          자유롭게 나눠요.</p>
       </div>
     </div>
   </div>
@@ -328,7 +332,7 @@
       <div class="col-md-6 col-box ms-5">
         <input id="number-box" type="tel" name="number-box" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
           placeholder="010 - 1234 - 1234">
-        <a href="#main2"><button id="phone-submit" class="btn-circle ms-3">등록</button></a>
+        <button id="phone-submit" class="btn-circle ms-3" >등록</button>
         <!-- <span>010-1234-1234 형식으로 입력해주세요</span> -->
       </div>
     </div>
@@ -346,7 +350,7 @@
       <p>1. 개인정보 수집 및 이용동의<br>
         ■ 개인정보의 수집·이용 목적<br>
         <br>
-        (주)Ours(이하 회사라 함)는 '이름' 서비스 제공을 위해 다음의 목적을 위해 개인정보를 수집 및 이용합니다. 수집된 개인정보는 다음의 목적 이외의 용도로는 이용되지 않으며 수집 목적이 변경될
+        Ours(이하 회사라 함)는 '이름' 서비스 제공을 위해 다음의 목적을 위해 개인정보를 수집 및 이용합니다. 수집된 개인정보는 다음의 목적 이외의 용도로는 이용되지 않으며 수집 목적이 변경될
         경우
         사전에 알리고 동의를 받을 예정입니다.<br>
         <br>
@@ -359,7 +363,7 @@
         <br>
         요금 정산 또는 비용 지급을 위해 수집항목이 추가될 수 있습니다.<br>
         <br>
-        - 필수항목 : 연락처<br>
+        - 필수항목 : 연락처, 나이, 가구원 수, 유형, 소득 인정액, 기준 중위소득 퍼센트<br>
         - 선택항목 : 없음<br>
         <br>
         ■ 개인정보의 보유·이용 기간<br>
@@ -397,8 +401,8 @@
       <div class="col-md-6 footer-right">
         <div class="pe-5">
           <p>SNS</p>
-          <a class="display-block" href="#instagram">instagram</a>
-          <a class="display-block" href="#brunch">brunch</a>
+          <a class="display-block" href="https://www.instagram.com/tirano_ours/" target='_blank'>instagram</a>
+          <!-- <a class="display-block" href="#brunch">brunch</a> -->
         </div>
         <div>
           <p>Contact</p>

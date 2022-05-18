@@ -20,6 +20,7 @@ def calculate_median_income(request):
         family_number = request_body.get("family-number")
         work = request_body.get("work")
         flag = request_body.get("flag")
+        if work == None: work =0
         # 가구별 중위소득 100% 금액
         median_income_100 = [
             1944812,
@@ -80,7 +81,8 @@ def deduct_work_income(request_body):
     work = request_body.get("work")
     medical = request_body.get("medical")
     default_deduction_rate = 0.7
-    if work != None or 0:
+
+    if work != None:
         if bokji_type == "None":
             deduction_value = 0
             deduction_rate = default_deduction_rate
@@ -193,6 +195,11 @@ def deduct_property(request_body, location_dict):
     rent = request_body.get("rent")
     debt = request_body.get("debt")
     land = request_body.get("land")
+    if debt == None: debt =0
+    if asset == None: asset =0
+    if living == None: living =0
+    if rent == None: rent =0
+    if land == None: land =0
     location_deduction = location_dict[location]
     total_deduction_value = location_deduction["living_deduction"] + debt
     total_deduction = 0

@@ -6,6 +6,7 @@
   --Primary-b: #275fae;
   --Secondary: #304977;
   --Basic: #66686b;
+  --Basic-4: #a7aaae;
   --F-s: 0.75rem; /* 12px */
   --F-sm: 1rem;
   --F-ms: 1.125rem; /* 18px */
@@ -40,6 +41,9 @@
 .f-basic {
   color: var(--Basic);
 }
+.f-basic-4 {
+  color: var(--Basic-4);
+}
 .f-light {
   font-weight: lighter;
 }
@@ -71,6 +75,9 @@
   position: relative;
   text-align: center;
 }
+small {
+  opacity: 0.7;
+}
 .row-box {
   display: flex;
   justify-content: center;
@@ -90,6 +97,7 @@
   left: -3px;
   vertical-align: middle;
   line-height: 15px;
+  opacity: 0.5;
 }
 .question-box {
   width: 355px;
@@ -138,7 +146,7 @@ h1 {
   color: black;
   font-weight: 300;
   position: absolute;
-  top: -92px;
+  top: -112px;
   left: 10px;
 }
 p {
@@ -268,6 +276,9 @@ select:hover {
   font-weight: bold;
   margin-top: 20px;
 }
+a:hover {
+  color: var(--Primary);
+}
 #calculation {
   position: relative;
   z-index: 2;
@@ -281,6 +292,7 @@ select:hover {
   border-radius: 20px;
   margin: 0 auto;
   padding: 50px;
+  padding-top: 90px;
   box-shadow: 4px 4px 35px rgb(0, 0, 0, 0.1);
   background-color: white;
   overflow: hidden;
@@ -513,9 +525,9 @@ aside {
   background-color: var(--Primary-b);
   font-size: var(--F-md);
 }
-#wrap {
-  position: relative;
-}
+/* #wrap {
+  /* position: relative;
+} */
 #agreement {
   width: 900px;
   height: 860px;
@@ -523,8 +535,8 @@ aside {
   box-shadow: 4px 4px 35px rgb(0, 0, 0, 0.1);
   background-color: white;
   margin: 0 auto;
-  position: absolute;
-  top: 1600px;
+  position: fixed;
+  top: 20px;
   transform: translateX(-50%);
   left: 50%;
   z-index: 3;
@@ -580,7 +592,7 @@ aside {
   margin: 0 0 20px;
 }
 .card-item > p + p {
-  margin-top: 44px;
+  margin-top: 24px;
 }
 
 /* =================================== footer =================================== */
