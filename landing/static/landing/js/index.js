@@ -72,7 +72,6 @@ let carTypeElement = document.getElementById("car-type");
 let debtElement = document.getElementById("debt");
 
 let phoneElement = document.getElementById("number-box");
-let resultPhoneElement = document.getElementById("result-phone");
 
 function changeValue(stringNumber, element) {
   let tempString = stringNumber.replaceAll(",", ""); // value를 받아서 value값 안에 모든 ,를 빈칸으로 만들어준다.
@@ -335,21 +334,35 @@ function getResults() {
   });
 }
 
-function getPhone() {
-  fetch("/phone/", {
+async function getPhone() {
+  console.log("send phone");
+  let resultPhoneElement = document.getElementById("result-phone-input");
+  let phoneNumber = resultPhoneElement
+    ? resultPhoneElement.value
+    : phoneElement.value;
+  if (!phoneNumber) {
+    alert("번호를 입력해 주세요.");
+    return false;
+  } else if (false /* valPhone(phoneNumber) */) {
+    alert("똑바로 입력해라");
+    return false;
+  }
+  let response = await fetch("/phone/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
       "X-CSRFToken": getCsrfToken(),
     },
     body: JSON.stringify({
-      phone: phoneElement.value,
+      phone: phoneNumber,
       // result_phone: resultPhoneElement.value, 결과 페이지 핸드폰은 어떻게 보내야하나요?
     }),
-  }).then((response) => {
-    if (response.status != 200) alert("일시적 오류");
-    else response.json();
   });
+  if (response.status != 200) {
+    alert("일시적 오류");
+    return false;
+  }
+  return true;
 }
 
 // 리팩토링 어떻게 하면 좋을까?
@@ -380,14 +393,10 @@ function updateWithResults(responseBody) {
   let bokji = responseBody.bokjiInfo[0].title;
   let service = responseBody.bokjiInfo[0].description;
 
-// bokjiInfo 배열 갯수 만큼 div 추가해준다.
+  // bokjiInfo 배열 갯수 만큼 div 추가해준다.
   let bokjiLength = responseBody.bokjiInfo.length;
-  let infoRight = document.querySelector('.info-right');
-  for (var i = 0; i < bokjiLength; i++) {
-    // 길이 만큼 반복문 돌면서 div생성하고
-    // 반복문 안에 ${responseBody.bokjiInfo[i].title}, ${responseBody.bokjiInfo[i].description} 속 []에 i 값 넣기.
-    infoRight.innerHTML += `<div class="mb-2"><span class="tag-box tag-box-wide">${responseBody.bokjiInfo[i].title}</span> ${responseBody.bokjiInfo[i].description}</div>`
-  }
+  // let nameBokji = document.createElement("div");
+  // nameBokji.classList.add('mb-2');
 
   let innerElement = `<p class="f-md">${nickname}님</p>
   <p class="f-l">중위소득 기준 범위는 <strong class="f-primary">${resultPercent}%</strong> 이에요</p>
@@ -406,16 +415,22 @@ function updateWithResults(responseBody) {
       <div class="mb-2"><span class="tag-box">가구원</span>${family}인 가구</div>
       <div class="mb-2"><span class="tag-box">소득 인정액</span>${resultTo}원</div>
     </div>
-    <div class="col-md-8 box-sha info-right">
+    <div id="infoRight" class="col-md-8 box-sha info-right">
       <p class="f-ms f-primary mb-3"><strong>${nickname}님께 추천드리는 복지혜택</strong></p>
     </div>
   </div>
   <p class="f-ms f-primary recommend"><strong>서비스 오픈 알림을  받아보실 수 있어️요</strong>  😁 </p>
   <div class="input-phone">
-    <input class="number-box" type="tel" placeholder="010 - 1234 - 1234">
-    <a href="#main2"><button id="result-phone" class="btn-circle-2 ms-3" onclick="getPhone()">등록</button></a>
+    <input class="number-box" id="result-phone-input" type="tel" placeholder="010 - 1234 - 1234">
+    <a href="#main2"><button id="result-phone" class="btn-circle-2 ms-3">등록</button></a>
   </div>`;
   resultTab.innerHTML = innerElement;
+  for (var i = 0; i < bokjiLength; i++) {
+    //   // 길이 만큼 반복문 돌면서 div생성하고
+    //   // 반복문 안에 ${responseBody.bokjiInfo[i].title}, ${responseBody.bokjiInfo[i].description} 속 []에 i 값 넣기.
+    let infoRight = document.getElementById("infoRight");
+    infoRight.innerHTML += `<div class="mb-2"><span class="tag-box tag-box-wide">${responseBody.bokjiInfo[i].title}</span> ${responseBody.bokjiInfo[i].description}</div>`;
+  }
   // 제이쿼리도 이안에 같이 넣어줘야지 작동한다.
   $("#result-phone").on("click", function () {
     $("#agreement").fadeIn();
@@ -945,9 +960,13 @@ $(".exit").on("click", function () {
 // 체크된 값 boolean
 const is_agree = document.querySelector('input[name="agreement"]');
 
-function agreement(event) {
+async function agreement(event) {
   if (is_agree.checked == true) {
+    if (!(await getPhone())) {
+      return;
+    }
     alert("신청해주셔서 감사합니다.");
+    location.href = "/";
   } else {
     alert("개인정보 제공 동의서에 동의해주세요.");
     event.preventDefault();

@@ -235,10 +235,10 @@ button + span {
 .top_img {
   position: absolute;
   top: 50px;
-  left: 0px;
+  left: 5%;
 }
 #section-wrap > .top_img:nth-child(2) {
-  left: 1160px;
+  left: 79%;
 }
 section {
   background-color: var(--Primary);
