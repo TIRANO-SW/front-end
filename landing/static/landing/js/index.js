@@ -334,6 +334,12 @@ function getResults() {
   });
 }
 
+// 전화번호 입력 형식 기능 구현
+// function checkPhone() {
+//   var patternPhone = /01[016789]-[^0][0-9]{2,3}-[0-9]{3,4}/;
+  
+// }
+
 async function getPhone() {
   console.log("send phone");
   let resultPhoneElement = document.getElementById("result-phone-input");
@@ -344,7 +350,7 @@ async function getPhone() {
     alert("번호를 입력해 주세요.");
     return false;
   } else if (false /* valPhone(phoneNumber) */) {
-    alert("똑바로 입력해라");
+    alert("010 - 1234 - 5678 형식에 맞춰 입력해주세요!");
     return false;
   }
   let response = await fetch("/phone/", {
@@ -390,8 +396,8 @@ function updateWithResults(responseBody) {
     })
     .slice(1);
   let resultTotal = responseBody.incomeResult;
-  let bokji = responseBody.bokjiInfo[0].title;
-  let service = responseBody.bokjiInfo[0].description;
+  // let bokji = responseBody.bokjiInfo[0].title;
+  // let service = responseBody.bokjiInfo[0].description;
 
   // bokjiInfo 배열 갯수 만큼 div 추가해준다.
   let bokjiLength = responseBody.bokjiInfo.length;
@@ -429,7 +435,7 @@ function updateWithResults(responseBody) {
     //   // 길이 만큼 반복문 돌면서 div생성하고
     //   // 반복문 안에 ${responseBody.bokjiInfo[i].title}, ${responseBody.bokjiInfo[i].description} 속 []에 i 값 넣기.
     let infoRight = document.getElementById("infoRight");
-    infoRight.innerHTML += `<div class="mb-2"><span class="tag-box tag-box-wide">${responseBody.bokjiInfo[i].title}</span> ${responseBody.bokjiInfo[i].description}</div>`;
+    infoRight.innerHTML += `<div class="mb-2"><a href="${responseBody.bokjiInfo[i].bokjiLink}"><span class="tag-box tag-box-wide">${responseBody.bokjiInfo[i].bokjiName}</span></a> ${responseBody.bokjiInfo[i].bokjiBenetfit}</div>`;
   }
   // 제이쿼리도 이안에 같이 넣어줘야지 작동한다.
   $("#result-phone").on("click", function () {
