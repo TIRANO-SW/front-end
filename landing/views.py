@@ -305,22 +305,19 @@ def get_bokji_data(median_income, age, work, property, family_number):
         median_income, age, work, property, family_number
     )
     for bokji in recommend_bokji_list:
-        print(bokji)
         welfare = Welfare.objects.get(welfare_name=bokji)
         bokji_data = {
             "bokjiName": welfare.welfare_name,
             "bokjiBenefit": welfare.welfare_benefit,
             "bokjiLink": welfare.welfare_link,
         }
-        print(bokji_data)
         bokji_data_list.append(bokji_data)
-    print(bokji_data_list)
     return bokji_data_list
 
 
 def recommend_bokji(median_income, age, work, property, family_number):
     recommend_bokji_list = []
-    if age < 45:
+    if 15 < age < 45:
         if work < 3000000:
             recommend_bokji_list.append("국민내일배움카드")
         if (500000 < work <= 2000000) and (median_income < 100) and (19 < age <= 35):
@@ -341,7 +338,6 @@ def recommend_bokji(median_income, age, work, property, family_number):
     if len(recommend_bokji_list) < 5:
         recommend_bokji_list.append("무료 법률상담")
     elif len(recommend_bokji_list) > 5:
-        print(f"복지리스트{recommend_bokji_list}\n")
         num = len(recommend_bokji_list) - 5
         for i in range(num):
             recommend_bokji_list.pop()
@@ -366,7 +362,7 @@ def save_bokji_data():
             "welfare_type": "default",
         },
         {
-            "welfare_name": "서울시 청년 마음건강사업",
+            "welfare_name": "청년 마음건강사업",
             "welfare_benefit": "자가검진도입 전문심리상담 서비스",
             "welfare_condition": "서울시에 거주, 만19세~39세 청년",
             "welfare_link": "https://www.hrd.go.kr/hrdp/gi/pgibo/PGIBO0100T.do",
@@ -382,25 +378,25 @@ def save_bokji_data():
             "welfare_link": "https://www.hrd.go.kr/hrdp/gi/pgibo/PGIBO0100T.do",
         },
         {
-            "welfare_name": "청년내일저축계좌",
+            "welfare_name": "청년내일저축계좌I",
             "welfare_benefit": "3년간 최대 1,080만 원 지원금 추가 납입",
             "welfare_condition": "만 15세 이상 ~ 만 39세 이하, 기준 중위소득 50% 이하, 가구재산 대도시 3.5억원 / 중소도시 2억원 / 농어촌 1.7억원 이하",
             "welfare_link": "https://www.gwanak.go.kr/site/gwanak/06/10609060900002022032905.jsp",
         },
         {
-            "welfare_name": "청년내일저축계좌",
+            "welfare_name": "청년내일저축계좌II",
             "welfare_benefit": "3년간 최대 360만 원 지원금 추가 납입",
             "welfare_condition": "만 19세 이상 ~ 만 34세 이하, 기준 중위소득 100% 이하, 근로기준 월 50만원 초과 ~ 월 200만원 이하, 가구재산 대도시 3.5억원 / 중소도시 2억원 / 농어촌 1.7억원 이하",
             "welfare_link": "https://www.gwanak.go.kr/site/gwanak/06/10609060900002022032905.jsp",
         },
         {
-            "welfare_name": "국민취업지원제도 I유형",
+            "welfare_name": "국민취업지원제도I",
             "welfare_benefit": "구직촉진수당 최대 300만원 지급",
             "welfare_condition": "15~69세 가구단위 중위소득 60% 이하, 재산 4억원 이하 혹은 18~34세의 청년은 가구단위 중위소득 120% 이하",
             "welfare_link": "https://www.kua.go.kr/uapba010/selectSimulAsmtIntro.do",
         },
         {
-            "welfare_name": "국민취업지원제도 II유형",
+            "welfare_name": "국민취업지원제도II",
             "welfare_benefit": "취업활동 지원금 최대 25만원 지급",
             "welfare_condition": "18세~34세 구직자 혹은 35~69세 구직자 중 중위소득 100% 이하",
             "welfare_link": "https://www.kua.go.kr/uapba010/selectSimulAsmtIntro.do",
