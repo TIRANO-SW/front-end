@@ -113,6 +113,18 @@ debtElement.addEventListener("input", (event) =>
 
 const questionIcon = document.querySelectorAll(".question-icon");
 const questionBox = document.querySelectorAll(".question-box");
+const communityBox = document.querySelector(".comu-box");
+const comuTag = document.getElementById("community");
+
+function mouseEvent() {
+  comuTag.addEventListener("mouseover", () => {
+    communityBox.classList.add("show");
+  });
+  comuTag.addEventListener("mouseout", () => {
+    communityBox.classList.remove("show");
+  });
+}
+mouseEvent();
 
 function openQuestionBox() {
   questionIcon[0].addEventListener("mouseover", () => {
@@ -296,7 +308,7 @@ function checkVacant() {
 }
 let bottomPhone = false;
 function getResults(flag) {
-  if (bottomPhone){
+  if (bottomPhone) {
     return;
   }
   // 함수는 리턴값을 가질 수도 있고 없을 수 도 있다.
@@ -363,7 +375,7 @@ function checkPhoneVacant(ret = false) {
     : phoneElement.value;
 
   var patternPhone = /01[016789]-[^0][0-9]{2,3}-[0-9]{3,4}/;
-  
+
   if (!phoneNumber) {
     alert("번호를 입력해 주세요.");
     return false;
@@ -371,8 +383,7 @@ function checkPhoneVacant(ret = false) {
     alert("010 - 1234 - 5678 형식에 맞춰 입력해주세요!");
     return false;
   } else {
-    if (ret)
-      return phoneNumber;
+    if (ret) return phoneNumber;
     else return true;
   }
 }
@@ -518,7 +529,7 @@ function updateWithResults(responseBody) {
         ],
       },
       options: {
-        responsive: false,
+        responsive: true,
         scales: {
           y: {
             title: {
@@ -990,7 +1001,7 @@ function getCsrfToken() {
 // phone-submit 버튼 누르면 모달창 뜨는 UI
 
 $("#phone-submit").on("click", function () {
-  if(checkPhoneVacant()){
+  if (checkPhoneVacant()) {
     bottomPhone = true;
     $("#agreement").fadeIn();
   }
@@ -1001,7 +1012,6 @@ $(".exit").on("click", function () {
 });
 
 // 체크된 값 boolean
-
 
 async function agreement(event) {
   const is_agree = document.querySelector('input[name="agreement"]');
