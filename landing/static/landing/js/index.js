@@ -461,7 +461,7 @@ function updateWithResults(responseBody) {
     <div class="col-md-4 box-sha info-left clearfix">
       <p class="f-ms f-primary mb-3" style="text-align:center;"><strong>${nickname}</strong></p>
       <div class="mb-2"><span class="tag-box">나이</span> <span>${age} 세</span></div>
-      <div class="mb-2"><span class="tag-box">가구원</span>${family}인 가구</div>
+      <div class="mb-2"><span class="tag-box">가구원</span>${family}인</div>
       <div class="mb-2"><span class="tag-box">소득 인정액</span>${resultTo}원</div>
     </div>
     <div id="infoRight" class="col-md-8 box-sha info-right">
@@ -471,7 +471,7 @@ function updateWithResults(responseBody) {
   <p class="f-ms f-primary recommend"><strong>서비스 오픈 알림을  받아보실 수 있어️요</strong>  😁 </p>
   <div class="input-phone">
     <input class="number-box" id="result-phone-input" type="tel" placeholder="010 - 1234 - 1234">
-    <button id="result-phone" class="btn-circle-2 ms-3">등록</button>
+    <button id="result-phone" class="btn-circle-2 ms-3"><p>등록</p></button>
   </div>`;
   resultTab.innerHTML = innerElement;
   for (var i = 0; i < bokjiLength; i++) {

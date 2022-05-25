@@ -90,7 +90,7 @@ small {
   justify-content: center;
   align-items: center;
   padding-bottom: 150px;
-  height: 420px;
+  height: auto;
 }
 .won {
   position: absolute;
@@ -502,7 +502,6 @@ p > span {
 }
 
 .info-left {
-  width: 265px;
   height: auto;
   padding: 23px 35px;
   font-size: var(--f-sm);
@@ -513,7 +512,6 @@ p > span {
 }
 
 .info-right {
-  width: 470px;
   height: auto;
   padding: 23px 35px;
   font-size: var(--f-sm);
@@ -545,6 +543,7 @@ p > span {
   width: 46px;
   height: 46px;
   border-radius: 50%;
+
   color: white;
   background-color: var(--Primary);
   font-size: var(--F-sm);
@@ -678,7 +677,7 @@ aside {
 }
 
 .card-item {
-  width: 395px;
+  width: auto;
   height: 395px;
   box-shadow: 4px 4px 35px rgb(0, 0, 0, 0.1);
   border-radius: 20px;
@@ -696,20 +695,23 @@ aside {
 /* =================================== footer =================================== */
 footer {
   margin: 50px 0;
+  width: 100%;
 }
 .footer-box {
-  width: 1024px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
 }
 .footer-left {
   width: auto;
   text-align: left;
+  padding-left: 10%;
 }
 .footer-right {
   width: auto;
   display: flex;
   justify-content: center;
+  padding-right: 10%;
 }
 #number-box {
   width: 500px;
@@ -770,6 +772,7 @@ footer {
     margin-right: 0;
   }
   .card-item {
+    width: auto;
     height: auto;
   }
   .card-item > p {
@@ -777,7 +780,50 @@ footer {
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 820px) {
+  .card-item {
+    width: 100%;
+  }
+  #calculation {
+    width: 100%;
+    padding: 2%;
+  }
+  .calculate {
+    width: 100%;
+    padding: 20% 5% 0 5%;
+  }
+  .tab-group {
+    width: 100%;
+  }
+  .tab-item {
+    width: 100%;
+  }
+  input,
+  select {
+    width: 90%;
+    box-shadow: 3px 5px 10px 0px rgba(0, 0, 0, 0.09);
+  }
+  #number-box {
+    width: 90%;
+    margin-bottom: 2%;
+  }
+  .row {
+    margin: 5% 2%;
+  }
+  .top_img:nth-child(2) {
+    left: 70%;
+}
+.footer-box {
+  padding: 0;
+  justify-content: center;
+}
+.footer-left {
+  margin-bottom: 2%;
+  padding: 2%;
+}
+}
+
+@media screen and (max-width: 425px) {
   header {
     text-align: center;
     height: 60px;
@@ -824,20 +870,28 @@ footer {
     font-size: 0.8rem;
   }
   .tab-content:nth-child(1) {
-    transform: translateX(20px);
+    transform: translateX(0px);
     /* margin-left: 0.05%; */
   }
   .tab-content:nth-child(2) {
-    transform: translateX(260px);
+    transform: translateX(220px);
     /* margin-left: 0.05%; */
   }
   .tab-content:nth-child(3) {
-    transform: translateX(490px);
+    transform: translateX(440px);
+  }
+  .btn-circle > p {
+    font-size: var(--f-sm);
+  }
+  .btn-circle-2 > p {
+    font-size: var(--f-sm);
   }
   input,
   select {
     width: 90%;
+    box-shadow: 3px 5px 10px 0px rgba(0, 0, 0, 0.09);
   }
+
   .f-l {
     font-size: 1.5rem;
   }
@@ -924,10 +978,11 @@ footer {
   }
   #mychart {
     width: 300px;
+    height: 300px;
   }
 }
 
-@media screen and (max-width: 390px) {
+@media screen and (max-width: 375px) {
   .tab-content:nth-child(1) {
     transform: translateX(-10px);
     /* margin-left: 0.05%; */
@@ -939,14 +994,66 @@ footer {
   .tab-content:nth-child(3) {
     transform: translateX(428px);
   }
+  .question-icon {
+    top: 50px;
+    left: 10px;
+  }
   input,
   select {
     width: 80%;
+  }
+  .input-name {
+    padding-left: 2%;
   }
   article {
     padding: 0 2%;
   }
   aside {
     padding: 0 2%;
+  }
+  .f-s {
+    font-size: 0.3rem;
+  }
+  .f-sm {
+    font-size: 0.5rem;
+  }
+  .f-ms {
+    font-size: 0.8rem;
+  }
+  .f-md {
+    font-size: 1rem;
+  }
+  .f-l {
+    font-size: 1.2rem;
+  }
+  .f-lg {
+    font-size: 1.5rem;
+  }
+}
+@media screen and (max-width: 320px) {
+  .f-l {
+    font-size: 1rem;
+  }
+  .f-lg {
+    font-size: 1.5rem;
+  }
+  .f-md {
+    font-size: 0.7rem;
+  }
+  h1 {
+    font-size: 1.25rem;
+  }
+  .input-name {
+    width: 305px;
+  }
+  .tab-content:nth-child(2) {
+    transform: translateX(260px);
+    /* margin-left: 0.05%; */
+  }
+  .tab-content:nth-child(3) {
+    transform: translateX(535px);
+  }
+  .question-icon {
+    top: 70px;
   }
 }
