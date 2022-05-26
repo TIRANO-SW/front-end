@@ -821,6 +821,9 @@ footer {
   margin-bottom: 2%;
   padding: 2%;
 }
+#phone-submit > p {
+  font-size: 1rem;
+}
 }
 @media screen and (max-width: 480px) {
   header {
@@ -1137,6 +1140,54 @@ footer {
   #mychart {
     width: 300px;
     height: 300px;
+  }
+}
+@media screen and (max-width: 390px) {
+  .tab-content:nth-child(1) {
+    transform: translateX(-10px);
+    /* margin-left: 0.05%; */
+  }
+  .tab-content:nth-child(2) {
+    transform: translateX(205px);
+    /* margin-left: 0.05%; */
+  }
+  .tab-content:nth-child(3) {
+    transform: translateX(428px);
+  }
+  .question-icon {
+    top: 50px;
+    left: 10px;
+  }
+  input,
+  select {
+    width: 80%;
+  }
+  .input-name {
+    padding-left: 2%;
+  }
+  article {
+    padding: 0 2%;
+  }
+  aside {
+    padding: 0 2%;
+  }
+  .f-s {
+    font-size: 0.3rem;
+  }
+  .f-sm {
+    font-size: 0.5rem;
+  }
+  .f-ms {
+    font-size: 0.8rem;
+  }
+  .f-md {
+    font-size: 1rem;
+  }
+  .f-l {
+    font-size: 1.2rem;
+  }
+  .f-lg {
+    font-size: 1.5rem;
   }
 }
 
