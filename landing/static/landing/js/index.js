@@ -354,18 +354,6 @@ function getResults(flag) {
   });
 }
 
-// 전화번호 입력 형식 기능 구현
-// function checkPhone() {
-
-// }
-
-// if (!nicknameElement.value=="") {
-//   setColor(nicknameElement, bgGood);
-// }
-// if (!ageElement.value=="") {
-//   setColor(ageElement, bgGood);
-// }
-
 // checkPhoneVacant 기능 구현
 
 function checkPhoneVacant(ret = false) {
@@ -465,7 +453,8 @@ function updateWithResults(responseBody) {
       <div class="mb-2"><span class="tag-box">소득 인정액</span>${resultTo}원</div>
     </div>
     <div id="infoRight" class="col-md-8 box-sha info-right">
-      <p class="f-ms f-primary mb-3"><strong>${nickname}님께 추천드리는 복지혜택</strong></p>
+      <p class="f-ms f-primary"><strong>${nickname}님께 추천드리는 복지혜택</strong></p>
+      <p class="f-s f-basic mb-2">클릭해서 바로가기</p>
     </div>
   </div>
   <p class="f-ms f-primary recommend"><strong>서비스 오픈 알림을  받아보실 수 있어️요</strong>  😁 </p>
@@ -1023,7 +1012,8 @@ async function agreement(event) {
     location.href = "/";
   } else {
     alert("개인정보 제공 동의서에 동의해주세요.");
-    event.preventDefault();
+    // event.preventDefault();
+    $("#agreement").fadeOut();
   }
 }
 $("#agree-submit").on("click", agreement);

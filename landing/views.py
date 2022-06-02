@@ -59,6 +59,7 @@ def calculate_median_income(request):
         )
 
         property = property_deduction + car_deduction
+        
         bokji_data = get_bokji_data(median_income, age, work, property, family_number)
         if flag == 1:
             save_data(request_body, median_income, median_income_value)

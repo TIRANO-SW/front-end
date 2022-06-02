@@ -81,18 +81,18 @@ WSGI_APPLICATION = 'CLEAVERLY.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'HOST': 'fareing-mysql.cisvckycz7z1.ap-northeast-2.rds.amazonaws.com',
-        'PORT': '3306',
-        'NAME': 'fareing_demo',
-        'USER': 'demouser',
-        'PASSWORD': 'tirano0315!'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'HOST': 'fareing-mysql.cisvckycz7z1.ap-northeast-2.rds.amazonaws.com',
+    #     'PORT': '3306',
+    #     'NAME': 'fareing_demo',
+    #     'USER': 'demouser',
+    #     'PASSWORD': 'tirano0315!'
+    # }
 }
 
 

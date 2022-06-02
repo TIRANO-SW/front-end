@@ -262,10 +262,10 @@
           <button class="btn-circle-2 ms-3">등록</button>
         </div> -->
       </div>
-      <p class="f-basic-4" style="text-align: center; margin-top:24px;">입력하신 수입, 자산, 부채, 비용 정보는 사용자 브라우저 쿠키에만 저장되며,
+      <!-- <p class="f-basic-4" style="text-align: center; margin-top:24px;">입력하신 수입, 자산, 부채, 비용 정보는 사용자 브라우저 쿠키에만 저장되며,
         페어링에는
         데이터가 남지 않습니다.
-      </p>
+      </p> -->
     </div>
 
     <article>
@@ -397,8 +397,8 @@
       <!-- {% csrf_token %} -->
       <div class="check-box">
         <div class="reservation-input">
-          <input type="radio" name="agreement" id="agree"><label for="agree">동의합니다.</label>
-          <input type="radio" name="agreement" id="disagree"><label for="disagree">동의하지 않습니다.</label>
+          <input type="radio" name="agreement" id="agree" value="A" checked><label for="agree">동의합니다.</label>
+          <input type="radio" name="agreement" id="disagree" value="B"><label for="disagree">동의하지 않습니다.</label>
         </div>
         <button class="bt mt-2" id="agree-submit" onclick="getResults(1)">
           <p>제출하기</p>
