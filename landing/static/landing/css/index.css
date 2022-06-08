@@ -304,6 +304,35 @@ select {
   border-right: 16px solid transparent; /* 화살표 패딩 */
   border-left: 16px solid transparent; /* 화살표 패딩 */
 }
+#mainJob {
+  width: 90%;
+}
+#subJob {
+  width: 90%;
+}
+.job {
+  width: 100%;
+}
+.job-left {
+  width: 50%;
+  float: left;
+}
+.job-right {
+  width: 50%;
+  float: left;
+}
+.job-left > p {
+  padding: 30px 0 5px 20px;
+  font-size: 17px;
+  font-weight: bold;
+  text-align: left;
+}
+.job-right > p {
+  padding: 30px 0 5px 20px;
+  font-size: 17px;
+  font-weight: bold;
+  text-align: left;
+}
 #agree,
 #disagree {
   box-shadow: 0 0 0 0;
@@ -848,6 +877,12 @@ footer {
   }
   ul {
     margin: 0;
+  }
+  #mainJob {
+    width: 80%;
+  }
+  #subJob {
+    width: 80%;
   }
   .top_img {
     display: none;

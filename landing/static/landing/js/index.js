@@ -56,7 +56,9 @@ calSecond.addEventListener("click", () => {
 
 // 숫자에 , 로 구분해주는 구성
 // 리팩토링하기
-let nicknameElement = document.getElementById("nickname");
+// let nicknameElement = document.getElementById("nickname");
+let mainJobElement = document.getElementById("mainJob");
+let subJobElement = document.getElementById("subJob");
 let ageElement = document.getElementById("age");
 let familyElement = document.getElementById("family-number");
 let bokjiElement = document.getElementById("bokji-type");
@@ -170,12 +172,12 @@ function checkInput(form) {
   var bgBad = "red";
   var bgGood = "white";
   var valid = true;
-  if (form.nickname.value == "") {
-    valid = false;
-    setColor(form.nickname, bgBad);
-  } else {
-    setColor(form.nickname, bgGood);
-  }
+  // if (form.nickname.value == "") {
+  //   valid = false;
+  //   setColor(form.nickname, bgBad);
+  // } else {
+  //   setColor(form.nickname, bgGood);
+  // }
   if (form.age.value == "") {
     valid = false;
     setColor(form.age, bgBad);
@@ -244,12 +246,12 @@ function checkVacant() {
   let bgBad = "#F36A5D";
   let bgGood = "";
   let allFilled = true;
-  if (nicknameElement.value == "") {
-    allFilled = false;
-    setColor(nicknameElement, bgBad);
-  } else {
-    setColor(nicknameElement, bgGood);
-  }
+  // if (nicknameElement.value == "") {
+  //   allFilled = false;
+  //   setColor(nicknameElement, bgBad);
+  // } else {
+  //   setColor(nicknameElement, bgGood);
+  // }
   if (ageElement.value == "") {
     allFilled = false;
     setColor(ageElement, bgBad);
@@ -329,7 +331,9 @@ function getResults(flag) {
       "X-CSRFToken": getCsrfToken(),
     },
     body: JSON.stringify({
-      nickname: nicknameElement.value,
+      // nickname: nicknameElement.value,
+      "main-job": mainJobElement.value,
+      "sub-job": subJobElement.value, 
       age: parseInt(ageElement.value),
       "family-number": parseInt(familyElement.value),
       "bokji-type": bokjiElement.value,
@@ -442,6 +446,7 @@ function updateWithResults(responseBody) {
       <span class="f-ssm" style="float: left;">계산 날짜: ${date}</span>
       <span class="f-ssm" style="float: right;">오차범위 ±5%가 적용될 수 있어요</span>
     </p>
+    <p class="f-sm mb-2">생계형 목적, 특수한 경우 이외에 차량을 소유한 경우 중위소득이 높게 측정될 수 있습니다.</p>
     <div class="col-md-12 box-sha mb-3">
       <p class="f-ms f-primary m-2" style="text-align:center;"><strong>나의 소득 위치</strong></p>
       <canvas id="myChart" width="700px" height="200px"></canvas>

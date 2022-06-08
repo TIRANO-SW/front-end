@@ -80,12 +80,33 @@
         <div class="tab-content-group clearfix">
           <div class="tab-content">
             <h1>나의 <strong>중위소득 분위</strong> 계산 시작하기 😉</h1>
-            <p class="f-primary text-start input-name">닉네임 <small> (필수)</small></p>
-            <input name="nickname" id="nickname" type="text" placeholder="익명의 복지왕">
+            <div class="job clearfix">
+              <div class="job-left">
+              <p class="f-primary">본업
+                <!--<small> (필수)</small>-->
+              </p>
+              <!-- <input name="nickname" id="nickname" type="text" placeholder="익명의 복지왕"> -->
+              <select name="main-job" id="mainJob">
+                <option value=""></option>
+                <option value=""></option>
+                <option value=""></option>
+              </select>
+            </div>
+            <div class="job-right">
+              <p class="f-primary">부업
+                <!--<small> (필수)</small>-->
+              </p>
+              <select name="sub-job" id="subJob">
+                <option value=""></option>
+                <option value=""></option>
+                <option value=""></option>
+              </select>
+            </div>
+          </div>
             <p class="f-primary text-start input-name">나이 <small> (필수)</small></p>
             <input name="age" id="age" type="text" value="">
             <p class="f-primary text-start input-name">가구원수</p>
-            <select name="family-number" id="family-number" placeholder="adkfjdif">
+            <select name="family-number" id="family-number">
               <option value="1" selected>1인 가구</option>
               <option value="2">2인 가구</option>
               <option value="3">3인 가구</option>
