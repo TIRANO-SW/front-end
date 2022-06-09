@@ -85,6 +85,7 @@
 small {
   opacity: 0.7;
 }
+
 .row-box {
   display: flex;
   justify-content: center;
@@ -304,6 +305,10 @@ select {
   border-right: 16px solid transparent; /* 화살표 패딩 */
   border-left: 16px solid transparent; /* 화살표 패딩 */
 }
+.userCustom {
+  width: 90%;
+  display: none;
+}
 #mainJob {
   width: 90%;
 }
@@ -337,6 +342,7 @@ select {
 #disagree {
   box-shadow: 0 0 0 0;
 }
+
 input:focus,
 select:focus {
   font-weight: 100;
@@ -891,6 +897,12 @@ footer {
     font-size: var(--F-md);
     /* margin-left: 17%; */
   }
+  input::-webkit-input-placeholder {
+    font-size: var(--F-s);
+  }
+  input:-ms-input-placeholder {
+    font-size: var(--F-s);
+  }
   #calculation {
     width: 100%;
     padding: 2%;
@@ -938,6 +950,7 @@ footer {
   select {
     width: 90%;
     box-shadow: 3px 5px 10px 0px rgba(0, 0, 0, 0.09);
+    font-size: var(--F-m);
   }
 
   .f-md {
@@ -1209,6 +1222,12 @@ footer {
     font-size: var(--F-md);
     /* margin-left: 17%; */
   }
+  input::-webkit-input-placeholder {
+    font-size: var(--F-s);
+  }
+  input:-ms-input-placeholder {
+    font-size: var(--F-s);
+  }
   #calculation {
     width: 100%;
     padding: 2%;
@@ -1256,6 +1275,7 @@ footer {
   select {
     width: 90%;
     box-shadow: 3px 5px 10px 0px rgba(0, 0, 0, 0.09);
+    font-size: var(--F-sm);
   }
 
   .f-l {

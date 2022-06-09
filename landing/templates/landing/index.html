@@ -80,6 +80,8 @@
         <div class="tab-content-group clearfix">
           <div class="tab-content">
             <h1>나의 <strong>중위소득 분위</strong> 계산 시작하기 😉</h1>
+            <p class="f-primary text-start input-name">나이 <small> (필수)</small></p>
+            <input name="age" id="age" type="text">
             <div class="job clearfix">
               <div class="job-left">
                 <p class="f-primary">본업
@@ -87,24 +89,41 @@
                 </p>
                 <!-- <input name="nickname" id="nickname" type="text" placeholder="익명의 복지왕"> -->
                 <select name="main-job" id="mainJob">
-                  <option value=""></option>
-                  <option value=""></option>
-                  <option value=""></option>
+                  <option value="student">학생</option>
+                  <option value="no-job">무직</option>
+                  <option value="publc-official">공무원</option>
+                  <option value="part-timer">아르바이트</option>
+                  <option value="self-employment">자영업</option>
+                  <option value="marketing">마케팅/광고/홍보</option>
+                  <option value="it">IT/인터넷</option>
+                  <option value="culture">문화/예술</option>
+                  <option value="design">디자인</option>
+                  <option value="trade">무역/유통</option>
+                  <option value="media">미디어</option>
+                  <option value="service">서비스</option>>
+                  <option value="sales">영업/고객상담</option>
+                  <option value="research">연구개발</option>
+                  <option value="produce">생산/제조</option>
+                  <option value="religion">종교 관련직</option>
+                  <option value="erection">건설</option>
+                  <option value="medical">의료</option>
+                  <option value="direct">직접 입력</option>
                 </select>
+                <input class="userCustom" type="text" id="selboxDirect" name="selboxDirect" placeholder="상세 직무를 입력해주세요"
+                  value="">
               </div>
               <div class="job-right">
                 <p class="f-primary">부업
                   <!--<small> (필수)</small>-->
                 </p>
                 <select name="sub-job" id="subJob">
-                  <option value=""></option>
-                  <option value=""></option>
-                  <option value=""></option>
+                  <option value="x">해당사항 없음</option>
+                  <option value="hope">희망하고 있음</option>
+                  <option value="direct">직접 입력</option>
                 </select>
+                <input class="userCustom" type="text" id="subDirect" name="subDirect" placeholder="부업을 입력해주세요" value="">
               </div>
             </div>
-            <p class="f-primary text-start input-name">나이 <small> (필수)</small></p>
-            <input name="age" id="age" type="text" value="">
             <p class="f-primary text-start input-name">가구원수</p>
             <select name="family-number" id="family-number">
               <option value="1" selected>1인 가구</option>

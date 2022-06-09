@@ -1,5 +1,48 @@
 // moment.js
 moment.locale("ko");
+
+// 셀렉트 박스에서 직접입력 선택 구현
+$("#mainJob").change(function () {
+  if ($("#mainJob").val() == "direct") {
+    $("#selboxDirect").show();
+    $("#mainJob").hide();
+  } else if ($("#mainJob").val() == "marketing") {
+    $("#selboxDirect").show();
+    $("#mainJob").hide();
+  } else if ($("#mainJob").val() == "it") {
+    $("#selboxDirect").show();
+    $("#mainJob").hide();
+  } else if ($("#mainJob").val() == "culture") {
+    $("#selboxDirect").show();
+    $("#mainJob").hide();
+  } else if ($("#mainJob").val() == "design") {
+    $("#selboxDirect").show();
+    $("#mainJob").hide();
+  } else if ($("#mainJob").val() == "trade") {
+    $("#selboxDirect").show();
+    $("#mainJob").hide();
+  } else if ($("#mainJob").val() == "service") {
+    $("#selboxDirect").show();
+    $("#mainJob").hide();
+  } else if ($("#mainJob").val() == "media") {
+    $("#selboxDirect").show();
+    $("#mainJob").hide();
+  } else {
+    $("#selboxDirect").hide();
+  }
+});
+$("#subJob").change(function () {
+  if ($("#subJob").val() == "direct") {
+    $("#subDirect").show();
+    $("#subJob").hide();
+  } else if ($("#subJob").val() == "hope") {
+    $("#subDirect").show();
+    $("#subJob").hide();
+  } else {
+    $("#subDirect").hide();
+  }
+});
+
 // 계산기 Tab 기능 구현
 
 const tab = document.querySelectorAll(".tab-item");
@@ -58,7 +101,9 @@ calSecond.addEventListener("click", () => {
 // 리팩토링하기
 // let nicknameElement = document.getElementById("nickname");
 let mainJobElement = document.getElementById("mainJob");
+let selboxDirectElement = document.getElementById("selboxDirect");
 let subJobElement = document.getElementById("subJob");
+let subDirectElement = document.getElementById("subDirect");
 let ageElement = document.getElementById("age");
 let familyElement = document.getElementById("family-number");
 let bokjiElement = document.getElementById("bokji-type");
@@ -332,8 +377,10 @@ function getResults(flag) {
     },
     body: JSON.stringify({
       // nickname: nicknameElement.value,
-      "main-job": mainJobElement.value,
-      "sub-job": subJobElement.value, 
+      "main-job": mainJobElement.value, // 직접입력 선택시 direct가 전달됨
+      "main-job-direct": selboxDirectElement.value, // 사용자가 입력한 값을 전달함
+      "sub-job": subJobElement.value,
+      "sub-job-direct": subDirectElement.value,
       age: parseInt(ageElement.value),
       "family-number": parseInt(familyElement.value),
       "bokji-type": bokjiElement.value,
