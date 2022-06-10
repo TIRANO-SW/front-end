@@ -301,6 +301,13 @@ nav > input {
   transform: rotate(-45deg);
   top: 0;
 }
+.alert-agree {
+  color: grey;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: var(--F-s);
+}
 input,
 select {
   width: 580px;

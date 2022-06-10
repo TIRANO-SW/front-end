@@ -499,7 +499,7 @@ function updateWithResults(responseBody) {
       <span class="f-ssm" style="float: left;">계산 날짜: ${date}</span>
       <span class="f-ssm" style="float: right;">오차범위 ±5%가 적용될 수 있어요</span>
     </p>
-    <p class="f-sm mb-2">생계형 목적, 특수한 경우 이외에 차량을 소유한 경우 중위소득이 높게 측정될 수 있습니다.</p>
+    <p class="f-sm mb-2 f-basic">생계형 목적, 특수한 경우 이외에 차량을 소유한 경우 중위소득이 높게 측정될 수 있습니다.</p>
     <div class="col-md-12 box-sha mb-3">
       <p class="f-ms f-primary m-2" style="text-align:center;"><strong>나의 소득 위치</strong></p>
       <canvas id="myChart" width="700px" height="200px"></canvas>
