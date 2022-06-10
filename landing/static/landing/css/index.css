@@ -85,7 +85,16 @@
 small {
   opacity: 0.7;
 }
-
+.reserve-input {
+  margin-top: 20px;
+}
+#accept {
+  width: 15px;
+  height: 15px;
+  position: relative;
+  top: 1.5px;
+  left: 10px;
+}
 .row-box {
   display: flex;
   justify-content: center;
@@ -1040,6 +1049,11 @@ footer {
   #mychart {
     width: 300px;
     height: 300px;
+  }
+  .footer-box {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 

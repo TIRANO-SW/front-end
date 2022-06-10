@@ -353,56 +353,62 @@ function checkVacant() {
   // }
   return allFilled;
 }
+
 let bottomPhone = false;
 function getResults(flag) {
-  if (bottomPhone) {
-    return;
-  }
-  // 함수는 리턴값을 가질 수도 있고 없을 수 도 있다.
-  // 어떤 실행의 결과값을 얻고 싶다면 리턴을 사용한다.
-  // 일련의 과정들을 실행하기만 하고 싶으면 리턴을 사용하지 않는다.
-  let allFilled = checkVacant();
-  if (!allFilled) {
-    alert("필수 항목을 채워주세요");
-    tabOpen(0);
-    tabGroup.style.transform = "translateX(780px)";
-    return;
-  }
+  let accept = document.querySelector('input[name="acceptment"]');
+  if (accept.checked) {
+    if (bottomPhone) {
+      return;
+    }
+    // 함수는 리턴값을 가질 수도 있고 없을 수 도 있다.
+    // 어떤 실행의 결과값을 얻고 싶다면 리턴을 사용한다.
+    // 일련의 과정들을 실행하기만 하고 싶으면 리턴을 사용하지 않는다.
+    let allFilled = checkVacant();
+    if (!allFilled) {
+      alert("필수 항목을 채워주세요");
+      tabOpen(0);
+      tabGroup.style.transform = "translateX(780px)";
+      return;
+    }
 
-  fetch("/cal-data/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json;charset=utf-8",
-      "X-CSRFToken": getCsrfToken(),
-    },
-    body: JSON.stringify({
-      // nickname: nicknameElement.value,
-      "main-job": mainJobElement.value, // 직접입력 선택시 direct가 전달됨
-      "main-job-direct": selboxDirectElement.value, // 사용자가 입력한 값을 전달함
-      "sub-job": subJobElement.value,
-      "sub-job-direct": subDirectElement.value,
-      age: parseInt(ageElement.value),
-      "family-number": parseInt(familyElement.value),
-      "bokji-type": bokjiElement.value,
-      location: locationElement.value,
-      work: parseInt(workElement.value.replaceAll(",", "")),
-      living: parseInt(livingElement.value.replaceAll(",", "")),
-      asset: parseInt(assetElement.value.replaceAll(",", "")),
-      rent: parseInt(rentElement.value.replaceAll(",", "")),
-      land: parseInt(landElement.value.replaceAll(",", "")),
-      medical: parseInt(medicalElement.value.replaceAll(",", "")),
-      car: parseInt(carElement.value.replaceAll(",", "")),
-      "car-type": carTypeElement.value,
-      debt: parseInt(debtElement.value.replaceAll(",", "")),
-      flag: parseInt(flag),
-    }),
-  }).then((response) => {
-    if (response.status != 200) alert("일시적 오류");
-    else
-      response.json().then((responseBody) => {
-        updateWithResults(responseBody);
-      });
-  });
+    fetch("/cal-data/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        "X-CSRFToken": getCsrfToken(),
+      },
+      body: JSON.stringify({
+        // nickname: nicknameElement.value,
+        "main-job": mainJobElement.value, // 직접입력 선택시 direct가 전달됨
+        "main-job-direct": selboxDirectElement.value, // 사용자가 입력한 값을 전달함
+        "sub-job": subJobElement.value,
+        "sub-job-direct": subDirectElement.value,
+        age: parseInt(ageElement.value),
+        "family-number": parseInt(familyElement.value),
+        "bokji-type": bokjiElement.value,
+        location: locationElement.value,
+        work: parseInt(workElement.value.replaceAll(",", "")),
+        living: parseInt(livingElement.value.replaceAll(",", "")),
+        asset: parseInt(assetElement.value.replaceAll(",", "")),
+        rent: parseInt(rentElement.value.replaceAll(",", "")),
+        land: parseInt(landElement.value.replaceAll(",", "")),
+        medical: parseInt(medicalElement.value.replaceAll(",", "")),
+        car: parseInt(carElement.value.replaceAll(",", "")),
+        "car-type": carTypeElement.value,
+        debt: parseInt(debtElement.value.replaceAll(",", "")),
+        flag: parseInt(flag),
+      }),
+    }).then((response) => {
+      if (response.status != 200) alert("일시적 오류");
+      else
+        response.json().then((responseBody) => {
+          updateWithResults(responseBody);
+        });
+    });
+  } else {
+    alert("개인 정보 제공에 동의해주세요.")
+  }
 }
 
 // checkPhoneVacant 기능 구현
